@@ -4,8 +4,10 @@
 # Load libraries ----------------------------------------------------------
 
 # load packages
-library(tidyverse)
+library(dplyr)
 library(stringr)
+library(janitor)
+library(readr)
 
 # Import data -------------------------------------------------------------
 
@@ -75,7 +77,24 @@ table(titles_dup_removed$database_type)
 
 # random assignments
 name = rep(c("MB", "CP", "LY", "DC", "PG", "ES", "RP"), length = nrow(titles_dup_removed))
-assignments <- cbind(titles_dup_removed, name = name)
+assignments <- cbind(titles_dup_removed, reviewer_name = name)
 
-# save out:
-write.csv(assignments, file = "data_clean/assignments.csv", row.names = FALSE)
+# add review columns:
+review_cols <- read_csv("Abstract_Reading_Analysis_Template.csv") %>%
+  clean_names() %>% select(-c(reviewer, title))
+(review_cols_names <- colnames(review_cols))
+
+# add columns but fill with NA
+assignments[,review_cols_names]=NA
+head(assignments)
+
+# save out all:
+write.csv(assignments, file = "data_clean/assignments_all.csv", row.names = FALSE)
+
+# split and write per person:
+library(purrr)
+library(glue)
+
+assignments %>%
+  group_split(reviewer_name) %>% # split by reviewer initials
+  walk(., ~write_csv(.x, file=glue("data_clean/{.x$reviewer_name[1]}_assignments_split.csv")))
