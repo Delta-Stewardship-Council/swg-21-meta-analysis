@@ -1,0 +1,81 @@
+# code for sorting titles from Mattea's search
+
+
+# Load libraries ----------------------------------------------------------
+
+# load packages
+library(tidyverse)
+library(stringr)
+
+# Import data -------------------------------------------------------------
+
+# load data
+pro <- read.csv("data_raw/ProQuest-2021-11-11.csv") # 72
+wos <- read.csv("data_raw/WOS_2021-11-11.csv") # 67
+
+# Clean Data --------------------------------------------------------------
+
+# Clean titles
+pro_titles <- pro %>%
+  # make title lower case
+  mutate(Title = tolower(Title),
+         # strip white spaces at end/beginnings all columns
+         across(.cols=everything(), ~str_trim(.)))
+
+wos_titles <- wos %>%
+  mutate(Article.Title = tolower(Article.Title),
+         # strip white spaces at end/beginnings all columns
+         across(.cols=everything(), ~str_trim(.)))
+
+# one database has periods at the end of titles and one does not
+pro_titles$Title <- gsub("[[:punct:][:blank:]]+", " ", pro_titles$Title)
+wos_titles$Article.Title <- gsub("[[:punct:][:blank:]]+", " ", wos_titles$Article.Title)
+
+
+# Combine Data Frames -----------------------------------------------------
+
+# pull just title, abstract, authors, article type, pubyear, volume, ID
+# rename to be consistent
+pro_titles_sel <- select(pro_titles,
+                         title=Title, abstract=Abstract, authors=Authors,
+                         article_type=ArticleType, pub_year=year, volume,
+                         database_id = StoreId) %>%
+  mutate(database_type = "proquest") # add where data came from
+
+wos_titles_sel <- select(wos_titles,
+                         title=Article.Title, abstract=Abstract, authors=Authors,
+                         article_type=Publication.Type,
+                         pub_year=Publication.Year, volume=Volume,
+                         database_id = `UT..Unique.ID.`) %>%
+  mutate(database_type="wos") # add where data came from
+
+# bind together
+titles_all <- bind_rows(pro_titles_sel, wos_titles_sel)
+
+# fix the article type column:
+titles_all <- titles_all %>%
+  mutate(article_type = case_when(
+    article_type == "J" ~ "Scholarly Journals",
+    article_type == "B" ~ "Books",
+    TRUE ~ article_type))
+
+table(titles_all$article_type)
+
+
+# Remove Duplicates -------------------------------------------------------
+
+# remove duplicates
+titles_dup_removed <- titles_all[!duplicated(titles_all$title),]
+dim(titles_dup_removed) #85 (12 each)
+table(titles_dup_removed$database_type)
+# proquest=48, wos=37
+
+
+# Random Assignments for Review -------------------------------------------
+
+# random assignments
+name = rep(c("MB", "CP", "LY", "DC", "PG", "ES", "RP"), length = nrow(titles_dup_removed))
+assignments <- cbind(titles_dup_removed, name = name)
+
+# save out:
+write.csv(assignments, file = "data_clean/assignments.csv", row.names = FALSE)
