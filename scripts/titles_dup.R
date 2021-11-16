@@ -1,11 +1,12 @@
 # code for sorting titles from Mattea's search
 
-
 # Load libraries ----------------------------------------------------------
 
 # load packages
-library(tidyverse)
+library(dplyr)
 library(stringr)
+library(janitor)
+library(readr)
 
 # Import data -------------------------------------------------------------
 
@@ -27,13 +28,6 @@ wos_titles <- wos %>%
          # strip white spaces at end/beginnings all columns
          across(.cols=everything(), ~str_trim(.)))
 
-# one database has periods at the end of titles and one does not
-pro_titles$Title <- gsub("[[:punct:][:blank:]]+", " ", pro_titles$Title)
-wos_titles$Article.Title <- gsub("[[:punct:][:blank:]]+", " ", wos_titles$Article.Title)
-
-
-# Combine Data Frames -----------------------------------------------------
-
 # pull just title, abstract, authors, article type, pubyear, volume, ID
 # rename to be consistent
 pro_titles_sel <- select(pro_titles,
@@ -52,6 +46,11 @@ wos_titles_sel <- select(wos_titles,
 # bind together
 titles_all <- bind_rows(pro_titles_sel, wos_titles_sel)
 
+# one database has periods at the end of titles and one does not, remove
+titles_all$title <- str_remove(titles_all$title, "\\.$") # remove end periods
+titles_all$title <- gsub(pattern = "<sub>|<//sub>", "", titles_all$title) # remove special html for subscript
+#titles_all$title <- gsub("[[:punct:][:blank:]]+", " ", titles_all$title)
+
 # fix the article type column:
 titles_all <- titles_all %>%
   mutate(article_type = case_when(
@@ -61,21 +60,36 @@ titles_all <- titles_all %>%
 
 table(titles_all$article_type)
 
-
 # Remove Duplicates -------------------------------------------------------
 
 # remove duplicates
 titles_dup_removed <- titles_all[!duplicated(titles_all$title),]
-dim(titles_dup_removed) #85 (12 each)
+dim(titles_dup_removed) #80 (12 each)
 table(titles_dup_removed$database_type)
-# proquest=48, wos=37
-
+# proquest=45, wos=35
 
 # Random Assignments for Review -------------------------------------------
 
 # random assignments
 name = rep(c("MB", "CP", "LY", "DC", "PG", "ES", "RP"), length = nrow(titles_dup_removed))
-assignments <- cbind(titles_dup_removed, name = name)
+assignments <- cbind(titles_dup_removed, reviewer_name = name)
 
-# save out:
-write.csv(assignments, file = "data_clean/assignments.csv", row.names = FALSE)
+# add review columns:
+review_cols <- read_csv("Abstract_Reading_Analysis_Template.csv") %>%
+  clean_names() %>% select(-c(reviewer, title))
+(review_cols_names <- colnames(review_cols))
+
+# add columns but fill with NA
+assignments[,review_cols_names]=NA
+head(assignments)
+
+# save out all:
+write.csv(assignments, file = "data_clean/assignments_all.csv", row.names = FALSE)
+
+# split and write per person:
+library(purrr)
+library(glue)
+
+assignments %>%
+  group_split(reviewer_name) %>% # split by reviewer initials
+  walk(., ~write_csv(.x, file=glue("data_clean/{.x$reviewer_name[1]}_assignments_split.csv")))
