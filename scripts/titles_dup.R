@@ -87,10 +87,6 @@ Shuffled <- function(inVec) {
 
 assignments$consistency_check <- ave(assignments$reviewer_name, FUN = Shuffled)
 
-# pull just three for each person (example for my initials).
-assignments_PG <- subset(assignments, review == "PG")
-assignments_PG[sample(nrow(assignments_PG), 3), ]
-
 # add review columns:
 review_cols <- read_csv("Abstract_Reading_Analysis_Template.csv") %>%
   clean_names() %>% select(-c(reviewer, title))
@@ -110,3 +106,11 @@ library(glue)
 assignments %>%
   group_split(reviewer_name) %>% # split by reviewer initials
   walk(., ~write_csv(.x, file=glue("data_clean/{.x$reviewer_name[1]}_assignments_split.csv")))
+
+# pull just three for each person (to double check 25%)
+assignments_PG <- subset(assignments, consistency_check == "PG")
+subsample_PG <- assignments_PG[sample(nrow(assignments_PG), 3), ]
+
+pg <- read.csv("data_clean/PG_assignments_split.csv")
+pg_final <- rbind(pg, subsample_PG)
+write.csv(pg_final, "data_clean/PG_assignments_split.csv")
