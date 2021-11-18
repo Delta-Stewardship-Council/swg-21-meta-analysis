@@ -83,6 +83,23 @@ review_cols <- read_csv("Abstract_Reading_Analysis_Template.csv") %>%
 assignments[,review_cols_names]=NA
 head(assignments)
 
+# add 25% duplication
+# reviewers for consistency
+Shuffled <- function(inVec) {
+  Res <- vector()
+  while ( TRUE ) {
+    Res <- sample(inVec)
+    if ( !any(Res == inVec) ) { break }
+  }
+  Res
+}
+
+assignments$review <- ave(assignments$name, FUN = Shuffled)
+
+# pull just three for each person (example for my initials).
+assignments_PG <- subset(assignments, review == "PG")
+assignments_PG[sample(nrow(assignments_PG), 3), ]
+
 # save out all:
 write.csv(assignments, file = "data_clean/assignments_all.csv", row.names = FALSE)
 
