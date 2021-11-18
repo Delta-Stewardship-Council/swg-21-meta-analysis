@@ -74,15 +74,6 @@ table(titles_dup_removed$database_type)
 name = rep(c("MB", "CP", "LY", "DC", "PG", "ES", "RP"), length = nrow(titles_dup_removed))
 assignments <- cbind(titles_dup_removed, reviewer_name = name)
 
-# add review columns:
-review_cols <- read_csv("Abstract_Reading_Analysis_Template.csv") %>%
-  clean_names() %>% select(-c(reviewer, title))
-(review_cols_names <- colnames(review_cols))
-
-# add columns but fill with NA
-assignments[,review_cols_names]=NA
-head(assignments)
-
 # add 25% duplication
 # reviewers for consistency
 Shuffled <- function(inVec) {
@@ -94,11 +85,20 @@ Shuffled <- function(inVec) {
   Res
 }
 
-assignments$review <- ave(assignments$name, FUN = Shuffled)
+assignments$consistency_check <- ave(assignments$reviewer_name, FUN = Shuffled)
 
 # pull just three for each person (example for my initials).
 assignments_PG <- subset(assignments, review == "PG")
 assignments_PG[sample(nrow(assignments_PG), 3), ]
+
+# add review columns:
+review_cols <- read_csv("Abstract_Reading_Analysis_Template.csv") %>%
+  clean_names() %>% select(-c(reviewer, title))
+(review_cols_names <- colnames(review_cols))
+
+# add columns but fill with NA
+assignments[,review_cols_names]=NA
+head(assignments)
 
 # save out all:
 write.csv(assignments, file = "data_clean/assignments_all.csv", row.names = FALSE)
