@@ -21,3 +21,4 @@ df2 <- as.vector(ours$title)
 setDT(df1, df2)
 
 in_common <- intersect(SL_titles$Title, ours$title)
+write.csv(in_common, "titles_in_common_w_LS2021.csv")
