@@ -18,9 +18,14 @@ DC$result_DC <- ifelse(DC$result_DC == "?", "unsure", DC$result_DC)
 PG$result_PG <- ifelse(PG$result_PG == "maybe", "unsure", PG$result_PG)
 
 # merge by title
-compare <- merge(DC[,c(2,17)], MB[,c(2,17)], by = "title", all = TRUE)
-compare <- merge(compare, PG[,c(2,17)],  by = "title", all = TRUE)
-compare <- merge(compare, LY[,c(2,8)],  by = "title", all = TRUE)
+compare_DC_MB <- merge(DC[,c(2,17)], MB[,c(2,17)], by = "title")
+compare_DC_PG <- merge(DC[,c(2,17)], PG[,c(2,17)],  by = "title")
+compare_DC_LY <- merge(DC[,c(2,17)], LY[,c(2,8)],  by = "title")
+
+compare_MB_PG <- merge(MB[,c(2,17)], PG[,c(2,17)],  by = "title")
+compare_MB_LY <- merge(MB[,c(2,17)], LY[,c(2,8)],  by = "title")
+
+compare_PG_LY <- merge(PG[,c(2,17)], LY[,c(2,8)],  by = "title")
 
 # make lower case
 compare$result_LY <- tolower(compare$result_LY)
