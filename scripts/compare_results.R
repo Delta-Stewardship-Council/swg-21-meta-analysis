@@ -78,3 +78,19 @@ compare$agree_disagree <- duplicated(compare[,c(2:5)], incomparables = "NA")
 compare$agree_disagree <- duplicated(compare[c("result_DC", "result_MB", "result_PG", "result_LY")], na.rm = TRUE)
 compare$agree_disagree <- unique(compare[,c(2:5)], incomparables = "NA")
 compare$agree_disagree <- compare[!duplicated(compare$result_DC, compare$result_MB, compare$result_PG), ]
+
+
+# master list with unique IDs
+all_titles <- read.csv("data_clean/assignments_all.csv")
+all_titles$ID <- seq.int(nrow(all_titles))
+all_titles <- all_titles[,c(1,3,5,6)]
+
+compare_abstracts <- merge(merge(merge(merge(merge(merge(merge(all_titles, DC[,c(2,17)], by='title', all=T), MB[,c(2,17)], by='title', all=TRUE), PG[,c(2,17)],  by = "title", all=TRUE), LY[,c(2,8)],  by = "title", all=TRUE), CP[,c(2,8)], by = "title", all=TRUE), ES[,c(2,17)], by = "title", all=TRUE), RP[,c(2,17)], by = "title", all=TRUE)
+
+# 4 of LY titles are showing up as different (commas have been dropped from the original titles?), fixed in github
+
+# need to update with DC and LY edits
+# change CP's unsure to NO and Liz's unsure to YES (decided at 12/17 meeting)
+compare_abstracts$NO <- apply(compare_abstracts, 1, function(r) any(r == "n"))
+
+
