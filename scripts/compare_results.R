@@ -3,8 +3,11 @@ DC <- read.csv("data_raw/DC_assignments_results.csv")
 MB <- read.csv("data_raw/MB_assignments_split_reviewed.csv")
 PG <- read.csv("data_raw/PG_assignments_results.csv")
 LY <- read.csv("data_raw/LY_assignments_results.csv")
-DC <- data.frame(DC)
-MB <- data.frame(MB)
+
+CP <- read.csv("data_raw/Abstracts_cp.csv")
+ES <- read.csv("data_raw/ES_assignments_results.csv")
+#DC <- data.frame(DC)
+#MB <- data.frame(MB)
 
 # rename columns
 colnames(DC)[17] <- "result_DC"
@@ -12,6 +15,10 @@ colnames(MB)[17] <- "result_MB"
 colnames(PG)[17] <- "result_PG"
 colnames(LY)[8] <- "result_LY"
 colnames(LY)[2] <- "title"
+
+colnames(CP)[8] <- "result_CP"
+colnames(CP)[2] <- "title"
+colnames(ES)[17] <- "result_ES"
 
 # change to unsure (also called 'maybe' and '?')
 DC$result_DC <- ifelse(DC$result_DC == "?", "unsure", DC$result_DC)
