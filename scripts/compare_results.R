@@ -6,6 +6,7 @@ LY <- read.csv("data_raw/LY_assignments_results.csv")
 
 CP <- read.csv("data_raw/Abstracts_cp.csv")
 ES <- read.csv("data_raw/ES_assignments_results.csv")
+RP <- read.csv("data_raw/RP_assignments_split.csv")
 #DC <- data.frame(DC)
 #MB <- data.frame(MB)
 
@@ -19,6 +20,7 @@ colnames(LY)[2] <- "title"
 colnames(CP)[8] <- "result_CP"
 colnames(CP)[2] <- "title"
 colnames(ES)[17] <- "result_ES"
+colnames(RP)[17] <- "result_RP"
 
 # change to unsure (also called 'maybe' and '?')
 DC$result_DC <- ifelse(DC$result_DC == "?", "unsure", DC$result_DC)
@@ -32,6 +34,7 @@ LY$result_LY <- tolower(LY$result_LY)
 
 CP$result_CP <- tolower(CP$result_CP)
 ES$result_ES <- tolower(ES$result_ES)
+RP$result_RP <- tolower(RP$result_RP)
 
 # merge by title
 compare_DC_MB <- merge(DC[,c(2,17)], MB[,c(2,17)], by = "title")
@@ -39,20 +42,27 @@ compare_DC_PG <- merge(DC[,c(2,17)], PG[,c(2,17)],  by = "title")
 compare_DC_LY <- merge(DC[,c(2,17)], LY[,c(2,8)],  by = "title")
 compare_DC_CP <- merge(DC[,c(2,17)], CP[,c(2,8)], by = "title")
 compare_DC_ES <- merge(DC[,c(2,17)], ES[,c(2,17)], by = "title")
+compare_DC_RP <- merge(DC[,c(2,17)], RP[,c(2,17)], by = "title")
 
 compare_MB_PG <- merge(MB[,c(2,17)], PG[,c(2,17)],  by = "title")
 compare_MB_LY <- merge(MB[,c(2,17)], LY[,c(2,8)],  by = "title")
 compare_MB_CP <- merge(MB[,c(2,17)], CP[,c(2,8)],  by = "title")
 compare_MB_ES <- merge(MB[,c(2,17)], ES[,c(2,17)],  by = "title")
+compare_MB_RP <- merge(MB[,c(2,17)], RP[,c(2,17)],  by = "title")
 
 compare_PG_LY <- merge(PG[,c(2,17)], LY[,c(2,8)],  by = "title")
 compare_PG_CP <- merge(PG[,c(2,17)], CP[,c(2,8)],  by = "title")
 compare_PG_ES <- merge(PG[,c(2,17)], ES[,c(2,17)],  by = "title")
+compare_PG_RP <- merge(PG[,c(2,17)], RP[,c(2,17)],  by = "title")
 
 compare_LY_CP <- merge(LY[,c(2,8)], CP[,c(2,8)],  by = "title")
 compare_LY_ES <- merge(LY[,c(2,8)], ES[,c(2,17)],  by = "title")
+compare_LY_RP <- merge(LY[,c(2,8)], RP[,c(2,17)],  by = "title")
 
 compare_CP_ES <- merge(CP[,c(2,8)], ES[,c(2,17)],  by = "title")
+compare_CP_RP <- merge(CP[,c(2,8)], RP[,c(2,17)],  by = "title")
+
+compare_ES_RP <- merge(ES[,c(2,17)], RP[,c(2,17)], by = "title")
 
 # true/false (agreement/disagreement)
 
