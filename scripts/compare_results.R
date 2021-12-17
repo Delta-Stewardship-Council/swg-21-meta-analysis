@@ -24,18 +24,35 @@ colnames(ES)[17] <- "result_ES"
 DC$result_DC <- ifelse(DC$result_DC == "?", "unsure", DC$result_DC)
 PG$result_PG <- ifelse(PG$result_PG == "maybe", "unsure", PG$result_PG)
 
+CP$result_CP <- ifelse(CP$result_CP == "U", "unsure", CP$result_CP)
+ES$result_ES <- ifelse(ES$result_ES == "M", "unsure", ES$result_ES)
+
+# make lower case
+LY$result_LY <- tolower(LY$result_LY)
+
+CP$result_CP <- tolower(CP$result_CP)
+ES$result_ES <- tolower(ES$result_ES)
+
 # merge by title
 compare_DC_MB <- merge(DC[,c(2,17)], MB[,c(2,17)], by = "title")
 compare_DC_PG <- merge(DC[,c(2,17)], PG[,c(2,17)],  by = "title")
 compare_DC_LY <- merge(DC[,c(2,17)], LY[,c(2,8)],  by = "title")
+compare_DC_CP <- merge(DC[,c(2,17)], CP[,c(2,8)], by = "title")
+compare_DC_ES <- merge(DC[,c(2,17)], ES[,c(2,17)], by = "title")
 
 compare_MB_PG <- merge(MB[,c(2,17)], PG[,c(2,17)],  by = "title")
 compare_MB_LY <- merge(MB[,c(2,17)], LY[,c(2,8)],  by = "title")
+compare_MB_CP <- merge(MB[,c(2,17)], CP[,c(2,8)],  by = "title")
+compare_MB_ES <- merge(MB[,c(2,17)], ES[,c(2,17)],  by = "title")
 
 compare_PG_LY <- merge(PG[,c(2,17)], LY[,c(2,8)],  by = "title")
+compare_PG_CP <- merge(PG[,c(2,17)], CP[,c(2,8)],  by = "title")
+compare_PG_ES <- merge(PG[,c(2,17)], ES[,c(2,17)],  by = "title")
 
-# make lower case
-compare$result_LY <- tolower(compare$result_LY)
+compare_LY_CP <- merge(LY[,c(2,8)], CP[,c(2,8)],  by = "title")
+compare_LY_ES <- merge(LY[,c(2,8)], ES[,c(2,17)],  by = "title")
+
+compare_CP_ES <- merge(CP[,c(2,8)], ES[,c(2,17)],  by = "title")
 
 # true/false (agreement/disagreement)
 
