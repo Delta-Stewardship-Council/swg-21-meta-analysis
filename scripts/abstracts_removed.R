@@ -10,5 +10,5 @@ write.csv(drops, "data_clean/abstract_eliminate_chl.csv")
 # fill in why they were dropped
 # marine
 # not original research
-# not landscape-scale hydrologicl connecitivity
+# not landscape-scale hydrologicl connectivity
 
