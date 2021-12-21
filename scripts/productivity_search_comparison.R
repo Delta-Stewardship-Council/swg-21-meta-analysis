@@ -90,5 +90,13 @@ productivity <- titles_dup_removed
 in_common <- intersect(chla$title, productivity$title)
 write.csv(in_common, "titles_in_common_chla_productivity.csv")
 
+# found eight duplicates during manual QC
+# sort
+productivity_search_all_sort <- with(productivity_search_all, productivity_search_all[order(title) ,])
 
+productivity_search_all_qc <- productivity_search_all_sort[-c(6,15,22,40,41,64,65,68),]
 
+# add ID column
+productivity_search_all_qc$ID <- seq.int(nrow(productivity_search_all_qc))
+
+write.csv(productivity_search_all_qc[,-1], "data_clean/productivity_search_qc.csv")
