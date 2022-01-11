@@ -103,3 +103,37 @@ productivity_search_all_qc <- productivity_search_all_qc[!productivity_search_al
 productivity_search_all_qc$ID <- seq.int(nrow(productivity_search_all_qc))
 
 write.csv(productivity_search_all_qc[,-1], "data_clean/productivity_search_qc.csv")
+
+############ group chose to include, adding abstract review assignments
+# load packages
+library(dplyr)
+library(readr)
+
+# random assignments
+name = rep(c("MB", "CP", "LY", "DC", "PG", "ES", "RP"), length = nrow(productivity_search_all_qc))
+assignments_pro <- cbind(productivity_search_all_qc[,-1], reviewer_name = name)
+
+# add 25% duplication
+# reviewers for consistency
+Shuffled <- function(inVec) {
+  Res <- vector()
+  while ( TRUE ) {
+    Res <- sample(inVec)
+    if ( !any(Res == inVec) ) { break }
+  }
+  Res
+}
+
+assignments_pro$consistency_check <- ave(assignments_pro$reviewer_name, FUN = Shuffled)
+
+# add review columns:
+review_cols <- read_csv("Abstract_Reading_Analysis_Template.csv") %>%
+  clean_names() %>% select(-c(reviewer, title))
+(review_cols_names <- colnames(review_cols))
+review_cols$reason <- "marine, type or connectivity"
+# add columns but fill with NA
+assignments_pro[,review_cols_names]=NA
+head(assignments_pro)
+
+# save out all:
+write.csv(assignments_pro, file = "data_clean/assignments_productivity_search_all.csv", row.names = FALSE)
