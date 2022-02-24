@@ -139,9 +139,28 @@ write.csv(chl_results[,-19], "data_clean/chl_results.csv")
 
 # pull them together and add decision column
 # also need to find 'reason' for all
-chl_reason <- read.csv("data_clean/abstract_results_chl.csv")
+chl_reason <- read.csv("data_raw/abstract_reason_chl.csv")
+head(chl_reason)
+chl_reason <- chl_reason[,-1]
+colnames(chl_reason)[3] <- "ID"
+reason <- chl_reason$ID
 
+# need to add with missing reason from DC and deal with disagreement duplication
+chl_reason_sub <- chl_results[chl_results$ID %in% reason,]
+new_reason <- c("marine","connectivity","type","NA","can I convert this to a yes?","connectivity","type","type","NA","connectivity","marine","connectivity","connectivity","type (but I made this decision after reviewing full text (can I convert it to a yes?)","NA","marine","marine","type","connectivity","marine; type", "connectivity","marine","marine","type","NA","type","connectivity")
 
-full_results <- rbind(chl_results[,-19], pro_results)
+chl_reason_sub <- cbind(chl_reason_sub, new_reason)
+
+# Liz included notes about changing to yes in the reason file
+chl_reason_sub[5,17] <- "y"
+chl_reason_sub[14,17] <- "y"
+
+chl_reason_main <- chl_results[!chl_results$ID %in% reason,]
+chl_reason_main$new_reason <- "NA"
+chl_results_w_reason <- rbind(chl_reason_main, chl_reason_sub)
+colnames(chl_results_w_reason)[20] <- "reason"
+full_results <- rbind(chl_results_w_reason[,-1], pro_results)
 
 write.csv(full_results, "data_clean/abstract_results_all.csv")
+
+# subset yes inclusion
