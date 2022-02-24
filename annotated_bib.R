@@ -119,14 +119,20 @@ chl_results$ID <- sub("^", "chl_", chl_results$ID)
 
 # find CP and LY consistency checks
 
-ID_sub <- chl_results[duplicated(chl_results$ID),]$ID
+#ID_sub <- chl_results[duplicated(chl_results$ID),]$ID
 
+chl_results$dup <- duplicated(chl_results$ID)
+dups <- subset(chl_results, dup == TRUE)
+checks <- dups$ID
+chl_results_sub <- chl_results[chl_results$ID %in% checks,]
+# character values
+chl_results_sub[chl_results_sub=='NA'] <- NA
+changes <- chl_results_sub[is.na(chl_results_sub$consistency_check),]
+changes$ID
 
-chl_results_sub <- chl_results[chl_results$ID %in% ID_sub,]
+chl_results[chl_results=='NA'] <- NA
+chl_results$consistency_check <- ifelse(is.na(chl_results$database_type), chl_results$reviewer_name, chl_results$consistency_check)
 
-chl_results_sub <- chl_results[chl_results$ID %in% ID_sub && chl_results$reviewer_name == "CP" | chl_results$reviewer_name == "LY", ]
+chl_results$reviewer_name <- ifelse(is.na(chl_results$database_type), "check", chl_results$reviewer_name)
 
-
-head(chl_results_sub)
-
-write.csv(chl_results, "data_clean/chl_results.csv")
+write.csv(chl_results[,-19], "data_clean/chl_results.csv")
