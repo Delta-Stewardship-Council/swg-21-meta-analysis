@@ -136,3 +136,12 @@ chl_results$consistency_check <- ifelse(is.na(chl_results$database_type), chl_re
 chl_results$reviewer_name <- ifelse(is.na(chl_results$database_type), "check", chl_results$reviewer_name)
 
 write.csv(chl_results[,-19], "data_clean/chl_results.csv")
+
+# pull them together and add decision column
+# also need to find 'reason' for all
+chl_reason <- read.csv("data_clean/abstract_results_chl.csv")
+
+
+full_results <- rbind(chl_results[,-19], pro_results)
+
+write.csv(full_results, "data_clean/abstract_results_all.csv")
