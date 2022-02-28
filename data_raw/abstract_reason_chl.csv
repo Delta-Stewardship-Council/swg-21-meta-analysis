@@ -1,0 +1,23 @@
+ID,reason,reviewer_name,ID
+2,marine,LY,chl_2
+5,connectivity,ES,chl_5
+7,type,LY,chl_7
+8,can I convert this to a yes?,ES,chl_8
+10,connectivity,RP,chl_10
+12,type,LY,chl_12
+15,type,MB,chl_15
+16,connectivity,ES,chl_16
+26,marine,LY,chl_26
+28,connectivity,MB,chl_28
+29,connectivity,LY,chl_29
+30,type (but I made this decision after reviewing full text (can I convert it to a yes?),ES,chl_30
+39,marine,PG,chl_39
+45,marine,CP,chl_45
+46,connectivity,ES,chl_46
+52,connectivity,CP,chl_52
+59,marine,LY,chl_59
+67,marine,ES,chl_67
+70,type,CP,chl_70
+72,type,MB,chl_72
+76,connectivity,RP,chl_76
+47,marine; type,DC,chl_47
