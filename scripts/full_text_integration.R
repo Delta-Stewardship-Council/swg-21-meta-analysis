@@ -1,5 +1,5 @@
 # libraries
-library(readr)
+library(readxl)
 
 # load data
 cc_pg <- read_excel("data_raw/Content_coding_PG.xlsx")
@@ -66,4 +66,27 @@ for (i in 1:length(colnames(fta_dc))) {
   colnames(fta_dc)[i] = tolower(colnames(fta_dc)[i])
   # return()     ... you don't need this
 }
+colnames(fta_dc)[1] <- "ID"
+colnames(fta_dc)[12] <- "basin_size"
+colnames(fta_dc)[13] <- "site_size"
+colnames(fta_dc)[18] <- "seasons"
+colnames(fta_dc)[33] <- "primary_productivity_metric"
+colnames(fta_dc)[34] <- "food_web"
+colnames(fta_dc)[40] <- "data_analysis_method"
+fta_dc <- fta_dc[,-7]
 
+# lots missing from DC
+fta_dc$seasonality <- "NA"
+fta_dc$hyporheic <- "NA"
+fta_dc$temporal_def <- "NA"
+fta_dc$regulated <- "NA"
+fta_dc$connectivity_def <- "NA"
+fta_dc$cc_notes <- "NA"
+fta_dc$meta_analysis <- "NA"
+fta_dc$include_exclude <- "NA"
+fta_dc$include_exclude_reason <- "NA"
+fta_dc$p_value <- "NA"
+
+full_text_review <- rbind(fta_dc, fta_pg, fta_mb, fta_ly, fta_es, fta_cp)
+
+write.csv(full_text_review, "data_clean/full_text_review_results.csv")
