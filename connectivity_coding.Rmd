@@ -1,0 +1,74 @@
+---
+title: "connectivity_coding"
+author: "Pascale"
+date: "4/28/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# libraries 
+```{r library, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
+# data
+```{r data, echo=FALSE}
+cc_results <- read.csv("data_clean/connectivity_coding.csv")
+
+# break up the commas
+# type
+test_dat <- cc_results %>%
+  separate_rows(connectivity_type, sep = ',')
+test_dat$connectivity_type <- as.numeric(test_dat$connectivity_type)
+
+# measure
+test_dat <- test_dat %>%
+  separate_rows(connectivity_measure, sep = ',')
+test_dat$connectivity_measure <- gsub("[[:space:]]", "", test_dat$connectivity_measure)
+```
+
+```{r bar plots, echo=FALSE}
+ggplot(cc_results, aes(connectivity_type)) +
+  geom_bar(aes(fill = seasonal_code))
+
+ggplot(cc_results, aes(connectivity_measure)) +
+  geom_bar(aes(fill = connectivity_type)) +
+  facet_grid(vars(seasonal_code), vars(repeats_code))
+
+ggplot(cc_results, aes(connectivity_measure)) +
+  geom_bar() +
+  facet_grid(rows = vars(connectivity_type))
+
+ggplot(cc_results, aes(repeats_code)) +
+  geom_bar(aes(fill = seasonal_code))
+
+ggplot(cc_results, aes(connectivity_type)) +
+  geom_bar(aes(fill = connectivity_measure)) +
+  facet_grid(vars(seasonal_code), vars(repeats_code))
+```
+
+```{r new type, echo=FALSE}
+ggplot(test_dat, aes(connectivity_type)) +
+  geom_bar(aes(fill = seasonal_code))
+```
+
+```{r new measure, echo=FALSE}
+ggplot(test_dat, aes(connectivity_type)) +
+  geom_bar(aes(fill = connectivity_measure))
+```
+
+```{r heatmap, echo=FALSE}
+ggplot(test_dat, aes(x = connectivity_type, y = connectivity_measure)) +
+  geom_bin2d() +
+  facet_grid(vars(seasonal_code), vars(repeats_code))
+```
+
+```{r pressure, echo=FALSE}
+
+```

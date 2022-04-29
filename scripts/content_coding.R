@@ -1,4 +1,6 @@
 library(ggplot2)
+library(dplyr)
+library(tidyr)
 
 head(full_text_review)
 cc_results <- full_text_review[,c(1:5)]
@@ -14,8 +16,14 @@ cc_results$connectivity_type <- ifelse(cc_results$connectivity_type == "lateral"
                                              ifelse(cc_results$connectivity_type == "1,3", "1, 3",
                                                     ifelse(cc_results$connectivity_type == "1, 2,3", "1, 2, 3", cc_results$connectivity_type)))))
 
+cc_results$connectivity_type <- gsub("[?]", "", cc_results$connectivity_type)
 
-cc_results$connectivity_measure <- tolower(cc_results$connectivity_measure)
+cc_results$connectivity_measure <- tolower
+# get rid of numbers for now
+cc_results$connectivity_measure <- gsub('[0-9]+', '', cc_results$connectivity_measure)
+cc_results$connectivity_measure <- gsub("[?]", "", cc_results$connectivity_measure)
+
+(cc_results$connectivity_measure)
 cc_results$seasonal_code <- tolower(cc_results$seasonal_code)
 cc_results$repeats_code <- tolower(cc_results$repeats_code)
 
@@ -33,6 +41,4 @@ cc_results[39, 5] <- "y"
 cc_results[40, 5] <- "n"
 cc_results[43, 5] <- "y"
 
-# plots and summary tables
-ggplot(cc_results, aes(connectivity_type)) + geom_bar()
-
+write.csv(cc_results, "data_clean/connectivity_coding.csv")
