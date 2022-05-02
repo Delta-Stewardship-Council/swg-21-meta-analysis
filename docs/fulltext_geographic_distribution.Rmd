@@ -1,0 +1,132 @@
+---
+title: "fulltext_geographic_distribution"
+author: "Mattea Berglund"
+date: "5/1/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message = FALSE, warning = FALSE}
+library(sf)
+library(ggplot2)
+library(leaflet)
+library(scales)
+library(ggmap)
+library(dplyr)
+library(rworldmap)
+library(stringr)
+```
+
+# Preparing the data
+```{r}
+#load data
+data_orig <- read.csv("data_clean/full_text_review_results.csv")
+#clean country column
+
+#reduce data frame to country data and remove blank rows
+country <- data_orig %>% 
+  select(ID, country, include_exclude) %>% 
+  drop_na(ID) %>%  #remove blank rows (no article ID)
+  na_if("na") %>% #make na's display properly 
+  drop_na(country) #remove 7 articles with now country reported
+
+#clean country data
+##standardize capitalization
+unique(country$country)
+country <- country %>% 
+  mutate(country = tolower(country))
+
+##remove ands
+country$country <- str_replace_all(country$country, " and ", ",") 
+#country$country <- str_replace_all(country$country, ";", ",") 
+#country$country <- str_replace_all(country$country, ":", ",") 
+
+##split lists into multiple rows by commas 
+country <- country %>% 
+  separate_rows(country, sep = ',')
+
+##remove percentages
+country$country <- gsub("[%()0123456789]", "", country$country)
+
+##remove spaces at beginning and end of responses
+country$country <- str_trim(country$country)
+
+##fix spelling
+country$country <- replace(country$country, country$country=="coatia", "croatia")
+country$country <- replace(country$country, country$country=="austrailia", "australia")
+country$country <- replace(country$country, country$country=="democratic republic of congo", "democratic republic of the congo")
+country$country <- replace(country$country, country$country=="uk", "UK")
+
+
+#make country into factor to allow tabulation
+country$country <- as.factor(country$country)
+
+#make table with count for each country
+country_count <- as.data.frame(table(country$country))
+country_count <- setNames(country_count, c("country", "n"))
+```
+
+# Mapping geographic distribution of all reviewed studies
+```{r}
+
+#make country names capitalized so they match with the map data
+country_count$country <- str_to_title(country_count$country)
+country_count$country <- replace(country_count$country, country_count$country=="Usa", "USA")
+country_count$country <- replace(country_count$country, country_count$country=="Democratic Republic Of The Congo", "Democratic Republic of the Congo")
+
+tiff(filename = "map_all_articles.tiff", width = 12, height = 8, units = "in", res = 300)
+
+world <- map_data("world")
+
+world %>% 
+  merge(country_count, by.x="region", by.y = "country", all.x = T) %>% 
+  arrange(group,order) %>% 
+  ggplot(aes(x = long, y = lat, group=group, fill=n)) +
+  geom_polygon()
+
+dev.off()
+
+```
+
+# Map geographic distribution of included studies
+```{r}
+#clean include_exclude column to allow filtering
+unique(country$include_exclude)
+
+country_include <- country %>% 
+  drop_na(include_exclude) %>% 
+  filter(include_exclude != "n" & include_exclude != "exclude")
+
+unique(country_include$include_exclude)
+
+#make table with count for each country
+country_count_include <- as.data.frame(table(country_include$country))
+country_count_include <- setNames(country_count_include, c("country", "n"))
+
+#make country names capitalized so they match with the map data
+country_count_include$country <- str_to_title(country_count_include$country)
+country_count_include$country <- replace(country_count_include$country, country_count_include$country=="Usa", "USA")
+country_count_include$country <- replace(country_count_include$country, country_count_include$country=="Democratic Republic Of The Congo", "Democratic Republic of the Congo")
+
+#remove countries with a count of 0 so they don't appear on map
+country_count_include <- country_count_include %>% 
+  filter(n != 0)
+
+#make map
+
+tiff(filename = "map_included_articles.tiff", width = 12, height = 8, units = "in", res = 300)
+
+world <- map_data("world")
+
+world %>% 
+  merge(country_count_include, by.x="region", by.y = "country", all.x = T) %>% 
+  arrange(group,order) %>% 
+  ggplot(aes(x = long, y = lat, group=group, fill=n)) +
+  geom_polygon()
+
+dev.off()
+```
+
