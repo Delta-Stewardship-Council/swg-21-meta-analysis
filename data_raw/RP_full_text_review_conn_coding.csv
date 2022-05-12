@@ -1,0 +1,16 @@
+﻿ID,Connectivity_type,connectivity_measure,seasonal_code,repeats_code,regulated_yn,notes
+chl_22,2,"b, c",yes,yes,no,monthly sampling using chla as surrogate for algal biomass and food web floodpulse concept
+chl_51,1,"b, c, e",yes,no,no,chlorophyll in mainstem and trib during high water and falling water
+chl_60,"1, 2",a,no,no,no,difference in env vs. spatial variation for describing high protein weight DOM vs. more labile DOM.
+chl_68,2,"c, d, e",yes,no,yes,biogeochemical comparison in connected small and large floodplain areas
+chl_78,2,g,no,no,no,"goals of paper were to derive chla critera based on cyanotox limits for drinking water supply. Connectivity was used to classify lake-river connections, but no mention of method. "
+chl_70,0,g,no,no,no,"data paper, not applicable"
+pro_15,3,"c, f",no,no,no,"method of isotope, DIC, and DO comparison to see ER and GPP response"
+pro_75,"1, 2",g,no,no,no,remote sensing so hard to infer measure in this way
+pro_5,1,a,no,no,no,modeling paper used spatial modeling to assess weights and predict DOC throughout stream network
+pro_44,2,b,yes,yes,no,measured water quality and zooplankton bi monthly in connected/disconnected oxbow in Poland
+pro_69,1,"a, b, f",yes,yes,yes,measured isotopes for food web length in regulated vs unregulated sites in river
+pro_21,2,"c, d",yes,no,no,seasonal measurements of ecosystem metabolism across lateral depth gradients using GPP and NEP to assess productivity connectivity (metabolic) between shallow and deep sites.
+chl_13,0,g,yes,yes,no,"biogenic ion paper looking at drainage network length, density and surface area and changes in N and P in relation to pollution and flow."
+chl_33,"1, 2","d, e",no,no,yes,effect of hydrologic connectivity/flood pulses on backwater nutrients and trophic process
+chl_41,"1, 2","b, c, d",yes,no,no,floodplain connected lakes via surface water remote sensing
