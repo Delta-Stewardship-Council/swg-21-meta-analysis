@@ -11,8 +11,8 @@ fta_es <- read_csv("data_raw/Fulltext_Analysis_Template_ebs_v2.csv")
 fta_mb <- read_csv("data_raw/MB_Fulltext_Analysis.csv")
 cc_mb <- read_excel("data_raw/MB_coding.xlsx")
 
-fta_cp <- read_excel("data_raw/CP_Fulltext_Coding.xlsx")
-cc_cp <- read_excel("data_raw/CP_Fulltext_Coding.xlsx", sheet = "Coding")
+fta_cp <- read_excel("data_raw/CP_Fulltext_Coding_v2.xlsx")
+cc_cp <- read_excel("data_raw/CP_Fulltext_Coding_v2.xlsx", sheet = "Coding")
 
 fta_dc <- read_csv("data_raw/dc_metafulltextreview_4.27.csv")
 
