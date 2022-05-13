@@ -1,0 +1,73 @@
+---
+title: "response_variable_exploration"
+author: "Mattea Berglund"
+date: "4/30/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# libraries 
+```{r library, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(tm)
+library(SnowballC)
+library(wordcloud)
+```
+
+# data
+```{r data, echo=FALSE}
+#load data
+data_full <- read.csv("data_clean/full_text_review_results.csv")
+
+#reduce dataframe to response variable columns and remove blank rows
+data <- data_full %>% 
+  select(ID, responses, chlorophyll, chlorophyll_method, chlorophyll_response, primary_productivity_metric, food_web, include_exclude, include_exclude_reason) %>% 
+  drop_na(ID) #remove row if the article ID is NA
+
+#break up the responses listed within one row
+## replace ; : and and with commas (don't replace () because often the were used to indicate the units of a measurement, so separating the phrases would duplicate responses) #for some reason str_replace_all does not work with piping, so did each step individually
+data$responses <- str_replace_all(data$responses, "and", ",") 
+data$responses <- str_replace_all(data$responses, ";", ",") 
+data$responses <- str_replace_all(data$responses, ":", ",") 
+
+##divide by commas 
+data_response <- data %>% 
+  separate_rows(responses, sep = ',')
+
+##remove spaces at beginning and end of responses
+data_response$responses <- str_trim(data_response$responses)
+
+```
+
+
+# Word cloud for response variables
+```{r}
+#####Word cloud code 
+
+datCorpus <- Corpus(VectorSource(data_response$responses))
+
+#datCorpus <- tm_map(datCorpus, stemDocument)
+#datCorpus <- tm_map(datCorpus, removePunctuation)
+#datCorpus <- tm_map(datCorpus, removeNumbers)
+datCorpus <- tm_map(datCorpus, tolower)
+
+datCorpus <- tm_map(datCorpus, removeWords, c('total', stopwords('english')))
+
+pal <- brewer.pal(10, "Paired")
+
+tiff(filename = "word_cloud_fulltext_response_variables.tiff", width = 10, height = 8, units = "in", res = 300)
+
+wordcloud(datCorpus, max.words = 1000, random.order = FALSE, col = pal, scale = c(1.75,0.25))
+
+dev.off()
+
+```
+
+
+ 
