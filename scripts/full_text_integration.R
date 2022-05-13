@@ -6,7 +6,7 @@ cc_pg <- read_excel("data_raw/Content_coding_PG.xlsx")
 fta_pg <- read_csv("data_raw/Fulltext_Analysis_Results_PG.csv")
 
 fta_ly <- read_csv("data_raw/Fulltext_Analysis_Template_LY.csv")
-fta_es <- read_csv("data_raw/Fulltext_Analysis_Template_ebs.csv")
+fta_es <- read_csv("data_raw/Fulltext_Analysis_Template_ebs_v2.csv")
 
 fta_mb <- read_csv("data_raw/MB_Fulltext_Analysis.csv")
 cc_mb <- read_excel("data_raw/MB_coding.xlsx")
@@ -15,6 +15,9 @@ fta_cp <- read_excel("data_raw/CP_Fulltext_Coding.xlsx")
 cc_cp <- read_excel("data_raw/CP_Fulltext_Coding.xlsx", sheet = "Coding")
 
 fta_dc <- read_csv("data_raw/dc_metafulltextreview_4.27.csv")
+
+fta_rp <- read.csv("data_raw/RP_full_text_review_results.csv")
+cc_rp <- read.csv("data_raw/RP_full_text_review_conn_coding.csv")
 
 # combine full text analysis and content coding for PG, MB, CP
 fta_pg <- merge(fta_pg, cc_pg, by = "ID")
