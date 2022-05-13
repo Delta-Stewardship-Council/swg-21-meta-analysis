@@ -5,7 +5,7 @@ library(readxl)
 cc_pg <- read_excel("data_raw/Content_coding_PG.xlsx")
 fta_pg <- read_csv("data_raw/Fulltext_Analysis_Results_PG.csv")
 
-fta_ly <- read_csv("data_raw/Fulltext_Analysis_Template_LY.csv")
+fta_ly <- read_csv("data_raw/Fulltext_Analysis_TemplateUpdated_LY.csv")
 fta_es <- read_csv("data_raw/Fulltext_Analysis_Template_ebs_v2.csv")
 
 fta_mb <- read_csv("data_raw/MB_Fulltext_Analysis.csv")
