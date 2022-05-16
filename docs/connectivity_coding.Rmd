@@ -3,8 +3,9 @@ title: "connectivity_coding"
 author: "Pascale"
 date: "4/28/2022"
 output:
-  pdf_document: default
+  word_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -16,9 +17,11 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
+library(knitr)
 ```
 # data
 ```{r data, echo=FALSE}
+setwd("C:/Users/pgoertler/Desktop/swg-21-meta-analysis")# not sure why, but this will not work without the directory call
 cc_results <- read.csv("data_clean/connectivity_coding.csv")
 
 # break up the commas
@@ -70,6 +73,7 @@ ggplot(test_dat, aes(x = connectivity_type, y = connectivity_measure)) +
 ```
 
 ```{r pressure, echo=FALSE}
+setwd("C:/Users/pgoertler/Desktop/swg-21-meta-analysis")
 full_text_review <- read.csv("data_clean/full_text_review_results.csv")
 unique(full_text_review$year)
 
