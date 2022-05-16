@@ -1,5 +1,6 @@
 # libraries
 library(readxl)
+library(readr)
 
 # load data
 cc_pg <- read_excel("data_raw/Content_coding_PG.xlsx")
@@ -22,37 +23,42 @@ cc_rp <- read.csv("data_raw/RP_full_text_review_conn_coding.csv")
 # combine full text analysis and content coding for PG, MB, CP
 fta_pg <- merge(fta_pg, cc_pg, by = "ID")
 fta_mb <- merge(fta_mb, cc_mb, by = "ID")
+fta_rp <- merge(fta_rp, cc_rp, by = "ID")
+
 colnames(cc_cp)[1] <- "ID" #space behind ID...
 fta_cp <- merge(fta_cp, cc_cp, by = "ID", all.x = TRUE)
 
 # get the same column names
 a <- colnames(fta_ly) # should all have 50 columns
-b <- colnames(fta_dc)
+b <- colnames(fta_rp)
 setdiff(a, b)
 setdiff(b, a)
 
+# update has two extra list columns
+fta_ly <- fta_ly[,-c(1:2)]
 colnames(fta_ly)[31] <- "cc_notes" #connectivity code notes
 colnames(fta_ly)[24] <- "regulated"
 fta_ly$p_value <- "NA"
 fta_ly$water_body_size <- "NA"
 
-fta_es$regulated <- "NA"
+colnames(fta_es)[30] <- "regulated"
+#fta_es$regulated <- "NA"
 fta_es$cc_notes <- "NA"
 fta_es$basin_size <- "NA"
-colnames(fta_es)[36] <- "p_value"
+colnames(fta_es)[37] <- "p_value"
 
 colnames(fta_cp)[47] <- "seasonal_code"
 colnames(fta_cp)[48] <- "repeats_code"
-colnames(fta_cp)[49] <- "regulated"
+colnames(fta_cp)[50] <- "regulated"
 colnames(fta_cp)[45] <- "connectivity_type"
 colnames(fta_cp)[46] <- "connectivity_measure"
-colnames(fta_cp)[51] <- "cc_notes"
-fta_cp <- fta_cp[,-c(3,50)]
+colnames(fta_cp)[49] <- "cc_notes"
+fta_cp <- fta_cp[,-3]
 fta_cp$p_value <- "NA"
 
 fta_mb$basin_size <- "NA"
-fta_mb$regulated <- "NA"
-colnames(fta_mb)[48] <- "cc_notes"
+#fta_mb$regulated <- "NA"
+colnames(fta_mb)[49] <- "cc_notes"
 colnames(fta_mb)[40] <- "notes"
 
 colnames(fta_pg)[46] <- "seasonal_code"
@@ -90,6 +96,19 @@ fta_dc$include_exclude <- "NA"
 fta_dc$include_exclude_reason <- "NA"
 fta_dc$p_value <- "NA"
 
-full_text_review <- rbind(fta_dc, fta_pg, fta_mb, fta_ly, fta_es, fta_cp)
+colnames(fta_rp)[29] <- "p_value"
+colnames(fta_rp)[7] <- "latitude"
+colnames(fta_rp)[45] <- "regulated"
+colnames(fta_rp)[41] <- "connectivity_type"
+colnames(fta_rp)[46] <- "cc_notes"
+colnames(fta_rp)[23] <- "predictors"
+colnames(fta_rp)[37] <- "notes"
+colnames(fta_rp)[29] <- "p_value"
+fta_rp$reviewer_name <- "RP"
+fta_rp$title <- "NA"
+fta_rp$basin_size <- "NA"
+fta_rp$longitude <- "NA"
+
+full_text_review <- rbind(fta_dc, fta_pg, fta_mb, fta_ly, fta_es, fta_cp, fta_rp)
 
 write.csv(full_text_review, "data_clean/full_text_review_results.csv")

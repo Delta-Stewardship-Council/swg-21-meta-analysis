@@ -70,5 +70,8 @@ ggplot(test_dat, aes(x = connectivity_type, y = connectivity_measure)) +
 ```
 
 ```{r pressure, echo=FALSE}
+full_text_review <- read.csv("data_clean/full_text_review_results.csv")
+unique(full_text_review$year)
 
+year <- full_text_review[,c(2,7,17,49)]
 ```
