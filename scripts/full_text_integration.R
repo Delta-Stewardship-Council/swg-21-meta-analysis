@@ -7,15 +7,15 @@ cc_pg <- read_excel("data_raw/Content_coding_PG.xlsx")
 fta_pg <- read_csv("data_raw/Fulltext_Analysis_Results_PG.csv")
 
 fta_ly <- read_csv("data_raw/Fulltext_Analysis_TemplateUpdated_LY.csv")
-fta_es <- read_csv("data_raw/Fulltext_Analysis_Template_ebs_v2.csv")
+fta_es <- read_csv("data_raw/Fulltext_Analysis_Template_ebs_060122.csv")
 
 fta_mb <- read_csv("data_raw/MB_Fulltext_Analysis.csv")
 cc_mb <- read_excel("data_raw/MB_coding.xlsx")
 
-fta_cp <- read_excel("data_raw/CP_Fulltext_Coding_v2.xlsx")
-cc_cp <- read_excel("data_raw/CP_Fulltext_Coding_v2.xlsx", sheet = "Coding")
+fta_cp <- read_excel("data_raw/CP_Fulltext_Coding_v3.xlsx", sheet = "Full_text")
+cc_cp <- read_excel("data_raw/CP_Fulltext_Coding_v3.xlsx", sheet = "Connectivity_Coding")
 
-fta_dc <- read_csv("data_raw/dc_metafulltextreview_4.27.csv")
+fta_dc <- read_csv("data_raw/dc_metafulltextreview_5.20.csv")
 
 fta_rp <- read.csv("data_raw/RP_full_text_review_results.csv")
 cc_rp <- read.csv("data_raw/RP_full_text_review_conn_coding.csv")
@@ -35,9 +35,9 @@ setdiff(a, b)
 setdiff(b, a)
 
 # update has two extra list columns
-fta_ly <- fta_ly[,-c(1:2)]
-colnames(fta_ly)[31] <- "cc_notes" #connectivity code notes
-colnames(fta_ly)[24] <- "regulated"
+fta_ly <- fta_ly[,-c(2:3)]
+colnames(fta_ly)[29] <- "cc_notes" #connectivity code notes
+colnames(fta_ly)[22] <- "regulated"
 fta_ly$p_value <- "NA"
 fta_ly$water_body_size <- "NA"
 
@@ -46,6 +46,7 @@ colnames(fta_es)[30] <- "regulated"
 fta_es$cc_notes <- "NA"
 fta_es$basin_size <- "NA"
 colnames(fta_es)[37] <- "p_value"
+fta_es <- fta_es[,-c(2:3)]
 
 colnames(fta_cp)[47] <- "seasonal_code"
 colnames(fta_cp)[48] <- "repeats_code"
@@ -53,22 +54,24 @@ colnames(fta_cp)[50] <- "regulated"
 colnames(fta_cp)[45] <- "connectivity_type"
 colnames(fta_cp)[46] <- "connectivity_measure"
 colnames(fta_cp)[49] <- "cc_notes"
-fta_cp <- fta_cp[,-3]
+fta_cp <- fta_cp[,-c(2:4)]
 fta_cp$p_value <- "NA"
 
 fta_mb$basin_size <- "NA"
 #fta_mb$regulated <- "NA"
 colnames(fta_mb)[49] <- "cc_notes"
 colnames(fta_mb)[40] <- "notes"
+fta_mb <- fta_mb[,-c(2:3)]
 
 colnames(fta_pg)[46] <- "seasonal_code"
 colnames(fta_pg)[47] <- "repeats_code"
-colnames(fta_pg)[49] <- "regulated"
+#colnames(fta_pg)[49] <- "regulated"
 colnames(fta_pg)[44] <- "connectivity_type"
 colnames(fta_pg)[45] <- "connectivity_measure"
 colnames(fta_pg)[48] <- "cc_notes"
 colnames(fta_pg)[32] <- "p_value"
 fta_pg$basin_size <- "NA"
+fta_pg <- fta_pg[,-c(2:3)]
 
 # should have done this up front...
 for (i in 1:length(colnames(fta_dc))) {
@@ -76,25 +79,21 @@ for (i in 1:length(colnames(fta_dc))) {
   # return()     ... you don't need this
 }
 colnames(fta_dc)[1] <- "ID"
-colnames(fta_dc)[12] <- "basin_size"
-colnames(fta_dc)[13] <- "site_size"
-colnames(fta_dc)[18] <- "seasons"
-colnames(fta_dc)[33] <- "primary_productivity_metric"
-colnames(fta_dc)[34] <- "food_web"
-colnames(fta_dc)[40] <- "data_analysis_method"
-fta_dc <- fta_dc[,-7]
+colnames(fta_dc)[13] <- "basin_size"
+colnames(fta_dc)[49] <- "data_analysis_method"
+colnames(fta_dc)[7] <- "chlorophyll"
+fta_dc <- fta_dc[,-36] # seems to be repeat of 7
+colnames(fta_dc)[39] <- "p_value"
 
-# lots missing from DC
-fta_dc$seasonality <- "NA"
-fta_dc$hyporheic <- "NA"
-fta_dc$temporal_def <- "NA"
+# a few extra columns
+fta_dc <- fta_dc[,-c(6,8,9,19,41,42)] #"month", "phytoplankton", "fish"
+
+# missing from DC
 fta_dc$regulated <- "NA"
-fta_dc$connectivity_def <- "NA"
 fta_dc$cc_notes <- "NA"
 fta_dc$meta_analysis <- "NA"
-fta_dc$include_exclude <- "NA"
 fta_dc$include_exclude_reason <- "NA"
-fta_dc$p_value <- "NA"
+#fta_dc$p_value <- "NA"
 
 colnames(fta_rp)[29] <- "p_value"
 colnames(fta_rp)[7] <- "latitude"
@@ -103,9 +102,6 @@ colnames(fta_rp)[41] <- "connectivity_type"
 colnames(fta_rp)[46] <- "cc_notes"
 colnames(fta_rp)[23] <- "predictors"
 colnames(fta_rp)[37] <- "notes"
-colnames(fta_rp)[29] <- "p_value"
-fta_rp$reviewer_name <- "RP"
-fta_rp$title <- "NA"
 fta_rp$basin_size <- "NA"
 fta_rp$longitude <- "NA"
 
