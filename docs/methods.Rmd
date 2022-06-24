@@ -1,0 +1,74 @@
+---
+title: "methods"
+author: "Pascale Goertler"
+date: '2022-06-24'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Methods
+
+## Full text
+
+```{r cars}
+library(dplyr)
+
+full_text_review <- read.csv("data_clean/full_text_review_results.csv")
+
+summary(full_text_review)
+
+unique(full_text_review$include_exclude)
+
+length(na.omit(full_text_review$ID)) #110 articles were reviewed as full text
+```
+
+# Results
+
+```{r pressure, echo=FALSE}
+results <- full_text_review[,c(1,43,44,48)]
+
+results_summary <- results %>%
+  group_by(include_exclude) %>%
+  summarize(n())
+
+results_summary
+
+```
+
+# QC
+
+```{r}
+exclude <- subset(results, include_exclude == "exclude" | include_exclude == "N") # 17
+
+unique(exclude$include_exclude_reason) # should be (a) not original research, (b)not aquatic or marine, (c) connectivity not on the landscape (cellular, population, etc.)
+
+# check
+pro_48 <- subset(full_text_review, ID == "pro_48")
+chl_14 <- subset(full_text_review, ID == "chl_14")
+pro_42 <- subset(full_text_review, ID == "pro_42")
+chl_13 <- subset(full_text_review, ID == "chl_13")
+chl_70 <- subset(full_text_review, ID == "chl_70")
+pro_5 <- subset(full_text_review, ID == "pro_5")
+
+# qc decsions 
+exclude$qc <- c("include", "a", "a", "a", "b", "a", "a", "a", "c", "a", "include", "a", "a", "a", "include", "include", "include")
+
+exclude_summary <- exclude %>%
+  group_by(qc) %>%
+  summarize(n())
+
+exclude_summary
+```
+# Final for analysis 
+
+```{r}
+full_text <- subset(full_text_review, include_exclude != "exclude" & include_exclude != "N")
+
+analysis_dat <- rbind(full_text, pro_48, pro_42, chl_13, chl_70, pro_5) #98 total articles for analysis
+
+write.csv(analysis_dat, "data_clean/analysis_dat.csv", row.names = FALSE)
+```
+
