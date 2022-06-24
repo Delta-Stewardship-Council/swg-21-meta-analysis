@@ -7,9 +7,9 @@ cc_pg <- read_excel("data_raw/Content_coding_PG.xlsx")
 fta_pg <- read_csv("data_raw/Fulltext_Analysis_Results_PG.csv")
 
 fta_ly <- read_csv("data_raw/Fulltext_Analysis_TemplateUpdated_LY.csv")
-fta_es <- read_csv("data_raw/Fulltext_Analysis_Template_ebs_060122.csv")
+fta_es <- read_csv("data_raw/Fulltext_Analysis_Template_ebs_060322.csv")
 
-fta_mb <- read_csv("data_raw/MB_Fulltext_Analysis.csv")
+fta_mb <- read_csv("data_raw/MB_Fulltext_Analysis_Jun10.csv")
 cc_mb <- read_excel("data_raw/MB_coding.xlsx")
 
 fta_cp <- read_excel("data_raw/CP_Fulltext_Coding_v3.xlsx", sheet = "Full_text")
@@ -20,17 +20,22 @@ fta_dc <- read_csv("data_raw/dc_metafulltextreview_5.20.csv")
 fta_rp <- read.csv("data_raw/RP_full_text_review_results.csv")
 cc_rp <- read.csv("data_raw/RP_full_text_review_conn_coding.csv")
 
+# add round two results
+fta_r2 <- read_excel("data_raw/MB_Full_Text_Review_Round2.xlsx")
+cc_r2 <- read_excel("data_raw/MB_Content_Coding_Round2.xlsx")
+
 # combine full text analysis and content coding for PG, MB, CP
 fta_pg <- merge(fta_pg, cc_pg, by = "ID")
 fta_mb <- merge(fta_mb, cc_mb, by = "ID")
 fta_rp <- merge(fta_rp, cc_rp, by = "ID")
+fta_r2 <- merge(fta_r2, cc_r2, by = "ID")
 
 colnames(cc_cp)[1] <- "ID" #space behind ID...
 fta_cp <- merge(fta_cp, cc_cp, by = "ID", all.x = TRUE)
 
 # get the same column names
 a <- colnames(fta_ly) # should all have 50 columns
-b <- colnames(fta_rp)
+b <- colnames(fta_r2)
 setdiff(a, b)
 setdiff(b, a)
 
@@ -105,6 +110,17 @@ colnames(fta_rp)[37] <- "notes"
 fta_rp$basin_size <- "NA"
 fta_rp$longitude <- "NA"
 
-full_text_review <- rbind(fta_dc, fta_pg, fta_mb, fta_ly, fta_es, fta_cp, fta_rp)
+fta_r2 <- fta_r2[,-c(2,3,42)]
+colnames(fta_r2)[42] <- "seasonal_code"
+colnames(fta_r2)[43] <- "repeats_code"
+colnames(fta_r2)[41] <- "connectivity_type"
+colnames(fta_r2)[40] <- "connectivity_measure"
+colnames(fta_r2)[44] <- "cc_notes"
+colnames(fta_r2)[37] <- "meta_analysis" #visually this is fine, but R doesn't like it
+fta_r2$basin_size <- "NA"
+fta_r2$temporal_def <- "NA"
+fta_r2$primary_productivity_metric <- "NA"
+
+full_text_review <- rbind(fta_dc, fta_pg, fta_mb, fta_ly, fta_es, fta_cp, fta_rp, fta_r2)
 
 write.csv(full_text_review, "data_clean/full_text_review_results.csv")
