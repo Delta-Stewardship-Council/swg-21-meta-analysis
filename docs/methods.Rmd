@@ -28,7 +28,7 @@ length(na.omit(full_text_review$ID)) #110 articles were reviewed as full text (1
 # Results
 
 ```{r pressure, echo=FALSE}
-results <- full_text_review[,c(1,43,44,48)]
+results <- full_text_review[,c(2,44,45,49)]
 
 results_summary <- results %>%
   group_by(include_exclude) %>%
@@ -218,9 +218,39 @@ abs_summary <- fin_abs %>%
 
 abs_summary
 
+write.csv(fin_abs, "data_clean/abstract_qc.csv", row.names = FALSE)
+
 # bring in full text results
 
 fin_abs$stage <- "abstract_review"
+
+head(exclude)
+exclude_ID <- unique(exclude$ID)
+
+full_text_include <- full_text_review %>% 
+  filter(!ID %in% exclude_ID)
+
+full_text_include$qc <- "include"
+
+full_text_fin <- rbind(exclude[,c(1,5)], full_text_include[,c(2,50)])
+full_text_fin <- na.omit(full_text_fin)
+
+full_text_fin %>%
+  group_by(qc) %>%
+  summarise(count = n_distinct(ID))
+
+full_text_fin$stage <- "full_text_review"
+
+write.csv(full_text_fin, "data_clean/full_text_qc.csv", row.names = FALSE)
+
+qc_results <- rbind(unique(fin_abs), unique(full_text_fin))
+
+qc_results %>%
+  group_by(qc, stage) %>%
+  summarise(count = n_distinct(ID))
+
+# check that all abstract review = include, have a full text review result
+
 
 
 ```
