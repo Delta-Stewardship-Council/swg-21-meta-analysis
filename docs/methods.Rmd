@@ -22,7 +22,7 @@ summary(full_text_review)
 
 unique(full_text_review$include_exclude)
 
-length(na.omit(full_text_review$ID)) #110 articles were reviewed as full text
+length(na.omit(full_text_review$ID)) #110 articles were reviewed as full text (107 from abstract review + 3 additions from updated search (R2))
 ```
 
 # Results
@@ -53,7 +53,7 @@ chl_13 <- subset(full_text_review, ID == "chl_13")
 chl_70 <- subset(full_text_review, ID == "chl_70")
 pro_5 <- subset(full_text_review, ID == "pro_5")
 
-# qc decsions 
+# qc decisions 
 exclude$qc <- c("include", "a", "a", "a", "b", "a", "a", "a", "c", "a", "include", "a", "a", "a", "include", "include", "include")
 
 exclude_summary <- exclude %>%
@@ -70,5 +70,158 @@ full_text <- subset(full_text_review, include_exclude != "exclude" & include_exc
 analysis_dat <- rbind(full_text, pro_48, pro_42, chl_13, chl_70, pro_5) #98 total articles for analysis
 
 write.csv(analysis_dat, "data_clean/analysis_dat.csv", row.names = FALSE)
+```
+
+## Abstract review
+
+```{r}
+abs <- read.csv("data_clean/abstract_results_all.csv")
+head(abs)
+
+R2 <- read.csv("data_raw/MB_abstract_review_Round2.csv")
+
+a <- colnames(abs) 
+b <- colnames(R2)
+setdiff(a, b)
+setdiff(b, a)
+
+R2$reason <- "NA"
+
+abs <- rbind(abs[,-1], R2)
+
+length(unique(abs$ID)) # 163 abstracts reviewed
+
+```
+
+# Results
+```{r}
+unique(abs$inclusion)
+abs_exclude <- subset(abs, inclusion == "N" | inclusion == "n" | inclusion == "unsure" | inclusion == "no") # not straight forward because of consistency check (e.g., have more results than articles)
+
+IDs4exclude <- unique(abs_exclude$ID) #58 (but two are added back in bc of 25% consistency check disagreement)
+
+# check against full text review results
+a <- unique(analysis_dat$ID)
+b <- unique(abs$ID)
+setdiff(a, b)
+length(setdiff(b, a)) # 65
+length(setdiff(a, IDs4exclude)) # 95
+
+abs_qc <- abs %>% 
+  filter(ID %in% IDs4exclude)
+
+abs_results <- abs_qc[,c(9,10,11,13,15:19)]
+
+```
+
+# QC
+
+```{r}
+unique(abs_results$reason)
+length(is.na(abs_results$reason)) # 75
+
+unique(abs_results$original_research_y_n)
+
+abs_results$qc <- ifelse(abs_results$original_research_y_n == "meta-analysis" | 
+                           abs_results$original_research_y_n == "N" |
+                           abs_results$original_research_y_n == "n (review)" |
+                           abs_results$original_research_y_n == "n", "a", NA)
+
+abs_original_research <- subset(abs_results, qc == "a")
+
+IDs_original_research <- unique(abs_original_research$ID) # 11 (4 duplicates)
+
+# rewrite to filter when disagreements occur 
+abs_original_research <- abs_results %>% 
+  filter(ID %in% IDs_original_research) # added two
+
+# chl_70 <-- was reviewed in full text stage
+# pro_3 <-- both say exclude, but have different reasons
+
+abs_subset <- abs_results %>% 
+  filter(!ID %in% IDs_original_research)
+
+unique(abs_subset$marine_y_n)
+
+abs_subset$qc <- ifelse(abs_subset$marine_y_n == "Y" | 
+                           abs_subset$marine_y_n == "y", "b", NA)
+
+abs_marine <- subset(abs_subset, qc == "b")
+IDs_marine <- unique(abs_marine$ID) #  15 (no duplicates)
+
+# rewrite to filter when disagreements occur 
+abs_marine <- abs_subset %>% 
+  filter(ID %in% IDs_marine) # added two
+
+# chl_16 is a disagreement about inclusion and marine <-- was reviewed in full text stage
+# pro_53 are in agreement on marine and exclude, just different notation 
+
+abs_conn <- abs_subset %>% 
+  filter(!ID %in% IDs_marine)
+
+length(unique(abs_conn$ID)) # 32
+unique(abs_conn$connectivity_metric)
+
+ID <- c("chl_10", "chl_12", "chl_15", "chl_26", "chl_28", "chl_29", "chl_39", "chl_46", "chl_5", "chl_52", "chl_59", "chl_72", "chl_76", "pro_10", "pro_12", "pro_12", "pro_13", "pro_13", "pro_19", "pro_23", "pro_29", "pro_30", "pro_30", "pro_39", "pro_4", "pro_50", "pro_50", "pro_58", "pro_58", "pro_6", "pro_60", "pro_61", "pro_61", "pro_64", "pro_64", "pro_69", "pro_69", "pro_70", "pro_74", "pro_77", "pro_77")
+
+qc <- c("include", "a", "a", "b", "c", "a", "b", "c", "include", "c", "b", "a", "c", "b", "b", "b", "a", "a", "b", "c", "b", "b", "b", "b", "include", "include", "include", "b", "b", "include", "a", "b", "b", "b", "b", "include", "include", "b", "include", "b", "b")
+
+fin_abs <- data.frame(ID, qc)
+
+# a will also include not written in English
+# b will also include not aquatic
+
+chl_10 <- subset(abs, ID == "chl_10") # water body type is river, "hyporheic flow" not a valid exclusion reason 
+chl_26 <- subset(abs, ID == "chl_26") # missing primary review (only have Lauren's consistency check...)
+chl_46 <- subset(abs, ID == "chl_46") # missing primary review
+chl_5 <- subset(abs, ID == "chl_5") # water body type is reservoir, no mention of connectivity, but on the landscape, aquatic and original research
+pro_10 <- subset(abs, ID == "pro_10")
+pro_13 <- subset(abs, ID == "pro_13")
+pro_4 <- subset(abs, ID == "pro_4")
+pro_50 <- subset(abs, ID == "pro_50") # disagreement between reviewers on inclusion
+pro_6 <- subset(abs, ID == "pro_6")
+# pro_60 disagreement between reviewers on inclusion <-- was reviewed in full text stage
+pro_74 <- subset(abs, ID == "pro_74")
+
+# complete check
+abs_original_research[5:6,10] <- "include" # chl_70
+abs_original_research[10,10] <- "a" # pro_3
+
+abs_marine[2:3,10] <- "include" # chl_16
+abs_marine[8,10] <- "b" # pro_53
+
+fin_abs <- rbind(fin_abs, abs_marine[,c(8,10)], abs_original_research[,c(8,10)])
+
+length(unique(fin_abs$ID)) #58
+
+```
+# Final for analysis 
+
+```{r}
+head(fin_abs)
+fin_ID <- unique(fin_abs$ID)
+
+fin_abs_qc <- abs %>% 
+  filter(!ID %in% fin_ID)
+
+length(unique(fin_abs_qc$ID)) # 105
+
+# 163 abstracts reviewed, 204 reviews total bc of consistency check
+
+fin_abs_qc$qc <- "include"
+
+fin_abs <- rbind(fin_abs, fin_abs_qc[,c(18,20)])
+
+abs_summary <- fin_abs %>%
+  group_by(qc) %>%
+  summarise(count = n_distinct(ID))
+
+abs_summary
+
+# bring in full text results
+
+fin_abs$stage <- "abstract_review"
+
+
 ```
 
