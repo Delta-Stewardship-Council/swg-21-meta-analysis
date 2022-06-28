@@ -18,7 +18,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r cars}
 library(dplyr)
 
-full_text_review <- read.csv("data_clean/full_text_review_results.csv")
+knitr::opts_knit$set(root.dir = '../') 
+full_text_review <- read.csv('../data_clean/full_text_review_results.csv')
 
 summary(full_text_review)
 
@@ -77,10 +78,10 @@ write.csv(analysis_dat, "data_clean/analysis_dat.csv", row.names = FALSE)
 ## Abstract review
 
 ```{r}
-abs <- read.csv("data_clean/abstract_results_all.csv")
+abs <- read.csv("../data_clean/abstract_results_all.csv")
 head(abs)
 
-R2 <- read.csv("data_raw/MB_abstract_review_Round2.csv")
+R2 <- read.csv("../data_raw/MB_abstract_review_Round2.csv")
 
 a <- colnames(abs) 
 b <- colnames(R2)
@@ -254,8 +255,8 @@ qc_results %>%
 # check that all abstract review = include, have a full text review result
 abs_include <- subset(fin_abs, qc == "include")
 
-a <- unique(abs_include$ID) # 163
-b <- unique(full_text_fin$ID) #110 (it is going to be 115)
+a <- unique(abs_include$ID) # 163, excluded --> 16 - a, 28 - b 5 - c
+b <- unique(full_text_fin$ID) #110 (it is going to be 114) excluded --> 10 - a, 1 - b 1 - c
 c <- unique(analysis_dat$ID) # 98 (TBD)
 needed <- setdiff(a, b)
 
