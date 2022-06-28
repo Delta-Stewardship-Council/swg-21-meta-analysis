@@ -250,8 +250,13 @@ qc_results %>%
   summarise(count = n_distinct(ID))
 
 # check that all abstract review = include, have a full text review result
+abs_include <- subset(fin_abs, qc == "include")
 
+a <- unique(abs_include$ID) # 163
+b <- unique(full_text_fin$ID) #110
+setdiff(a, b)
 
+# "chl_10" "chl_5"  "pro_4"  "pro_6"  "pro_74" need full text reviews
 
 ```
 
