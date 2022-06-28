@@ -2,7 +2,9 @@
 title: "methods"
 author: "Pascale Goertler"
 date: '2022-06-24'
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -253,10 +255,15 @@ qc_results %>%
 abs_include <- subset(fin_abs, qc == "include")
 
 a <- unique(abs_include$ID) # 163
-b <- unique(full_text_fin$ID) #110
-setdiff(a, b)
+b <- unique(full_text_fin$ID) #110 (it is going to be 115)
+c <- unique(analysis_dat$ID) # 98 (TBD)
+needed <- setdiff(a, b)
 
 # "chl_10" "chl_5"  "pro_4"  "pro_6"  "pro_74" need full text reviews
 
+full_text_needed <- abs %>% 
+  filter(ID %in% needed)
+
+write.csv(full_text_needed, "data_clean/full_text_needed.csv", row.names = FALSE)
 ```
 
