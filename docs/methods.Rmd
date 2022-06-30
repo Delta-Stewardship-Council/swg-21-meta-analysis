@@ -267,4 +267,47 @@ full_text_needed <- abs %>%
 
 write.csv(full_text_needed, "data_clean/full_text_needed.csv", row.names = FALSE)
 ```
+## After QC of full texts
+```{r}
+dat4ft <- read.csv("data_clean/full_text_qc.csv")
+
+# after looking at full text, pro_6 is a review
+
+ID <- c("chl_10", "chl_5",  "pro_4",  "pro_6",  "pro_74")
+qc <- c("include", "include","include", "a","include")
+stage <- "full_text_review"
+
+ft_needed <- data.frame(ID, qc, stage)
+
+dat4ft <- rbind(dat4ft, ft_needed)
+
+dat4ft %>%
+  group_by(qc) %>%
+  summarise(count = n_distinct(ID))
+
+write.csv(dat4ft, "data_clean/full_text_qc.csv", row.names = FALSE)# updated
+
+ft <- unique(dat4ft$ID)
+abs <- unique(fin_abs$ID)
+setdiff(abs, ft)
+
+a_check <- subset(fin_abs, qc == "a")
+b_check <- subset(fin_abs, qc == "b")
+c_check <- subset(fin_abs, qc == "c")
+
+length(unique(a_check$ID))
+length(unique(b_check$ID))
+length(unique(c_check$ID))
+
+a <- unique(a_check$ID)
+b <- unique(b_check$ID)
+c <- unique(c_check$ID)
+
+intersect(a, include)
+
+include_check <- subset(fin_abs, qc == "include")
+length(unique(include_check$ID))
+include <- unique(include_check$ID)
+
+```
 
