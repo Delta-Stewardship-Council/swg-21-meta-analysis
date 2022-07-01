@@ -1,0 +1,83 @@
+﻿ID,reviewer,summarized_by,connectivity_categorical,connectivity_quanitative,season_month,year,mean_chl,min_chl,max_chl,error_chl,error_type,sample_size,units,notes
+chl_32,ES,Arc,connected,surface water-chemistry trajectory category 1,June,2010,1.5,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Box,disconnected,surface water-chemistry trajectory category 1,June,2010,2.4,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Coast P. ,disconnected,surface water-chemistry trajectory category 1,June,2010,2.36,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Godwit,connected,surface water-chemistry trajectory category 1,June,2010,1.5,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Left,disconnected,surface water-chemistry trajectory category 1,June,2010,2.2,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Notch,disconnected,surface water-chemistry trajectory category 1,June,2010,0.6,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Plugged,disconnected,surface water-chemistry trajectory category 1,June,2010,1.6,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Recover,disconnected,surface water-chemistry trajectory category 1,June,2010,0.7,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Golf,connected,surface water-chemistry trajectory category 2,June,2010,0.6,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Island,disconnected,surface water-chemistry trajectory category 2,June,2010,1.4,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Larch,connected,surface water-chemistry trajectory category 2,June,2010,2.2,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Lumpy,disconnected,surface water-chemistry trajectory category 2,June,2010,1.3,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Orange ,connected,surface water-chemistry trajectory category 2,June,2010,0.5,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Swept,connected,surface water-chemistry trajectory category 2,June,2010,0.7,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Erin,connected,surface water-chemistry trajectory category 3,June,2010,1,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 3
+chl_32,ES,Some,disconnected,surface water-chemistry trajectory category 3,June,2010,1,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 3
+chl_32,ES,Strange,connected,surface water-chemistry trajectory category 3,June,2010,0.9,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 3
+chl_32,ES,Coast L.,connected,surface water-chemistry trajectory category 4,June,2010,0.47,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 4
+chl_32,ES,Homer,disconnected,surface water-chemistry trajectory category 4,June,2010,1.5,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 4
+chl_32,ES,Serene,connected,surface water-chemistry trajectory category 4,June,2010,3.1,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 4
+chl_32,ES,Arc,connected,surface water-chemistry trajectory category 1,July,2010,2.4,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Box,disconnected,surface water-chemistry trajectory category 1,July,2010,1.1,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Coast P. ,disconnected,surface water-chemistry trajectory category 1,July,2010,1,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Godwit,connected,surface water-chemistry trajectory category 1,July,2010,1,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Left,disconnected,surface water-chemistry trajectory category 1,July,2010,0.3,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Notch,disconnected,surface water-chemistry trajectory category 1,July,2010,0.8,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Plugged,disconnected,surface water-chemistry trajectory category 1,July,2010,1.1,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Recover,disconnected,surface water-chemistry trajectory category 1,July,2010,0.7,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Golf,connected,surface water-chemistry trajectory category 2,July,2010,2.4,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Island,disconnected,surface water-chemistry trajectory category 2,July,2010,2.4,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Larch,connected,surface water-chemistry trajectory category 2,July,2010,1.7,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Lumpy,disconnected,surface water-chemistry trajectory category 2,July,2010,1.4,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Orange ,connected,surface water-chemistry trajectory category 2,July,2010,4.5,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Swept,connected,surface water-chemistry trajectory category 2,July,2010,1.6,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Erin,connected,surface water-chemistry trajectory category 3,July,2010,1.5,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 3
+chl_32,ES,Some,disconnected,surface water-chemistry trajectory category 3,July,2010,1.7,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 3
+chl_32,ES,Strange,connected,surface water-chemistry trajectory category 3,July,2010,1.3,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 3
+chl_32,ES,Coast L.,connected,surface water-chemistry trajectory category 4,July,2010,1.5,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 4
+chl_32,ES,Homer,disconnected,surface water-chemistry trajectory category 4,July,2010,0.8,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 4
+chl_32,ES,Serene,connected,surface water-chemistry trajectory category 4,July,2010,1.6,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 4
+chl_32,ES,Arc,connected,surface water-chemistry trajectory category 1,September,2010,1.7,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Box,disconnected,surface water-chemistry trajectory category 1,September,2010,2.2,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Coast P. ,disconnected,surface water-chemistry trajectory category 1,September,2010,0.4,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Godwit,connected,surface water-chemistry trajectory category 1,September,2010,1.5,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Left,disconnected,surface water-chemistry trajectory category 1,September,2010,0.5,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Notch,disconnected,surface water-chemistry trajectory category 1,September,2010,0.3,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Plugged,disconnected,surface water-chemistry trajectory category 1,September,2010,2.3,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Recover,disconnected,surface water-chemistry trajectory category 1,September,2010,0.6,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 1
+chl_32,ES,Golf,connected,surface water-chemistry trajectory category 2,September,2010,1.6,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Island,disconnected,surface water-chemistry trajectory category 2,September,2010,0.3,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Larch,connected,surface water-chemistry trajectory category 2,September,2010,0.4,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Lumpy,disconnected,surface water-chemistry trajectory category 2,September,2010,1.5,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Orange ,connected,surface water-chemistry trajectory category 2,September,2010,0.9,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Swept,connected,surface water-chemistry trajectory category 2,September,2010,1.4,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 2
+chl_32,ES,Erin,connected,surface water-chemistry trajectory category 3,September,2010,5.2,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 3
+chl_32,ES,Some,disconnected,surface water-chemistry trajectory category 3,September,2010,3.2,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 3
+chl_32,ES,Strange,connected,surface water-chemistry trajectory category 3,September,2010,1.1,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 3
+chl_32,ES,Coast L.,connected,surface water-chemistry trajectory category 4,September,2010,0.9,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 4
+chl_32,ES,Homer,disconnected,surface water-chemistry trajectory category 4,September,2010,1.1,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 4
+chl_32,ES,Serene,connected,surface water-chemistry trajectory category 4,September,2010,1.1,NA,NA,NA,NA,1,μg L–1,surface water-chemistry trajectory 4
+pro_68,ES,hydrologic categories,connected,6 days,January-December,"1991, 1995, 1996, 1999, 2001",21,NA,NA,16,sd,31,μg L–1,Integration d/a is connectivity_quantitative
+pro_68,ES,hydrologic categories,connected,13 days,January-December,"1991, 1995, 1996, 1999, 2001",24,NA,NA,18,sd,72,μg L–1,Integration d/a is connectivity_quantitative
+pro_68,ES,hydrologic categories,connected,31 days,January-December,"1991, 1995, 1996, 1999, 2001",26,NA,NA,25,sd,12,μg L–1,Integration d/a is connectivity_quantitative
+pro_68,ES,hydrologic categories,connected,46 days,January-December,"1991, 1995, 1996, 1999, 2001",18,NA,NA,12,sd,33,μg L–1,Integration d/a is connectivity_quantitative
+pro_68,ES,hydrologic categories,connected,160 days,January-December,"1991, 1995, 1996, 1999, 2001",10,NA,NA,10,sd,9,μg L–1,Integration d/a is connectivity_quantitative
+pro_68,ES,hydrologic categories,connected,258 days,January-December,"1991, 1995, 1996, 1999, 2001",19,NA,NA,19,sd,24,μg L–1,Integration d/a is connectivity_quantitative
+pro_68,ES,hydrologic categories,connected,365 days,January-December,"1991, 1995, 1996, 1999, 2001",12,NA,NA,16,sd,34,μg L–1,Integration d/a is connectivity_quantitative
+chl_21,ES,connected lakes,connected,various hydraulic parameters,not reported,2008-2011,12.06,NA,NA,NA,NA,30,μg L–1,Table 3
+chl_21,ES,disconnected lakes,disconnected,various hydraulic parameters,not reported,2008-2011,13.92,NA,NA,NA,NA,60,μg L–1,Table 3
+chl_21,ES,all samples,"connected, disconnected",various hydraulic parameters,not reported,,13.38,0.54,43.09,NA,NA,68,μg L–1,Table 1
+chl_21,ES,relative depth greater than 0.09,connected,"mean depth, spatial area",not reported,,12.21,NA,NA,NA,NA,not reported,μg L–1,Table 2
+chl_21,ES,relative depth less than 0.09,disconnected,"mean depth, spatial area",not reported,,18.02,NA,NA,NA,NA,not reported,μg L–1,Table 2
+pro_71,ES,"proportion floodplain, max distance floodplain, max distance from home",habitat variables,distance,October-May,2013-2014,NA,NA,NA,NA,NA,69,10 g m-2,"multiple fish movement response variables, primary productivity metric is percent area periphyton >10 g m-2"
+chl_50,ES,river,gross communicty production,habitat type,"spring, summer, fall, winter","2006, 2007",0.67,NA,NA,0.18,se,,g O2 m-2 day-1,"augmented nutrient field experiment, chlorophyll specific metabolism, other metabolism metrics include ash free dry mass  and aeral pheophytin"
+chl_50,ES,river,net community metabolism,habitat type,"spring, summer, fall, winter","2006, 2007",0.04,NA,NA,0.04,se,,g O2 m-2 day-1,"augmented nutrient field experiment, chlorophyll specific metabolism, other metabolism metrics include ash free dry mass  and aeral pheophytin"
+chl_50,ES,river,community respiration,habitat type,"spring, summer, fall, winter","2006, 2007",0.63,NA,NA,0.2,se,,g O2 m-2 day-1,"augmented nutrient field experiment, chlorophyll specific metabolism, other metabolism metrics include ash free dry mass  and aeral pheophytin"
+chl_50,ES,wetland,gross communicty production,habitat type,"spring, summer, fall, winter","2006, 2007",2.16,NA,NA,0.57,se,,g O2 m-2 day-1,"augmented nutrient field experiment, chlorophyll specific metabolism, other metabolism metrics include ash free dry mass  and aeral pheophytin"
+chl_50,ES,wetland,net community metabolism,habitat type,"spring, summer, fall, winter","2006, 2007",0.45,NA,NA,0.38,se,,g O2 m-2 day-1,"augmented nutrient field experiment, chlorophyll specific metabolism, other metabolism metrics include ash free dry mass  and aeral pheophytin"
+chl_50,ES,wetland,community respiration,habitat type,"spring, summer, fall, winter","2006, 2007",1.71,NA,NA,0.38,se,,g O2 m-2 day-1,"augmented nutrient field experiment, chlorophyll specific metabolism, other metabolism metrics include ash free dry mass  and aeral pheophytin"
+chl_50,ES,lake,gross communicty production,habitat type,"spring, summer, fall, winter","2006, 2007",0.125,NA,NA,0.013,se,,g O2 m-2 day-1,"augmented nutrient field experiment, chlorophyll specific metabolism, other metabolism metrics include ash free dry mass  and aeral pheophytin"
+chl_50,ES,lake,net community metabolism,habitat type,"spring, summer, fall, winter","2006, 2007",0.06,NA,NA,0.01,se,,g O2 m-2 day-1,"augmented nutrient field experiment, chlorophyll specific metabolism, other metabolism metrics include ash free dry mass  and aeral pheophytin"
+chl_50,ES,lake,community respiration,habitat type,"spring, summer, fall, winter","2006, 2007",0.06,NA,NA,0.01,se,,g O2 m-2 day-1,"augmented nutrient field experiment, chlorophyll specific metabolism, other metabolism metrics include ash free dry mass  and aeral pheophytin"
