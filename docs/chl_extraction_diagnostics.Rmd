@@ -1,0 +1,61 @@
+---
+title: "Chl_extraction_diagnostics"
+author: "Mattea Berglund"
+date: "7/1/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Load packages
+```{r}
+library(dplyr)
+library(tidyr)
+```
+
+#Load data
+```{r}
+chl_data <- read.csv("data_clean/chl_extraction_all.csv")
+```
+
+#How many papers have chlorophyll, error, and sample size?
+```{r}
+#remove rows that have NA in both the mean and mix/max columns (e.g. have no chlorophyll data)
+#chl <- chl_data %>% 
+  
+#count remaining articles
+length(unique(chl$ID))
+
+#remove rows that have NA in the error column
+cerror <- chl %>% 
+  drop_na(error_chl)
+
+#count remaining articles
+length(unique(cerror$ID))
+
+#remove rows that do not have sample size 
+unique(error)
+cn <- cerror %>% 
+  drop_na(sample_size)
+
+```
+
+#Explore chlorophyll by connectivity category
+```{r}
+#view the connectivity categories in data set
+unique(chl_data$connectivity_categorical) #lots of variation in entries, not standardized to connected/disconnected
+
+#Make a column with a more standardized connectivity category 
+##For the purposes of data exploration. This column is based on my interpretation of the original connectivity_categorical column (e.g. "isolated" interpreted as "disconnected"; "connected stream" converted to "connected"). When no clear interpretation was available (e.g. "downstream"?), the value was "unclear"
+
+chl <- chl_data %>% 
+  mutate(mbconnectivity = connectivity_categorical) %>% 
+  replace(mbconnectivity)
+
+
+
+
+```
+
