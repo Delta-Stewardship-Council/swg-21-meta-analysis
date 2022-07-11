@@ -48,9 +48,6 @@ analysis_dat_qc = analysis_dat[!(analysis_dat$ID %in% exclude), ]
 
 analysis_dat_qc <- rbind(analysis_dat_qc, check)
 
-write.csv(analysis_dat_qc, "data_clean/analysis_dat.csv", row.names = FALSE)
-
-
 unique(analysis_dat_qc$connectivity_type)
 unique(analysis_dat_qc$connectivity_measure)
 unique(analysis_dat_qc$seasonal_code)
@@ -105,7 +102,35 @@ analysis_dat_qc$repeats_code <- ifelse(analysis_dat_qc$repeats_code == "yes", "y
                                   ifelse(analysis_dat_qc$repeats_code == "no", "n",
                                          analysis_dat_qc$repeats_code))
 
+# chl_74, chl_8, chl_44 - changing to n
 
+analysis_dat_qc$repeats_code <- ifelse(analysis_dat_qc$repeats_code == "na" | is.na(analysis_dat_qc$repeats_code), "n",
+                                              analysis_dat_qc$repeats_code)
+
+analysis_dat_qc$seasonal_code <- ifelse(analysis_dat_qc$seasonal_code == "na" | is.na(analysis_dat_qc$seasonal_code), "n",
+                                       analysis_dat_qc$seasonal_code)
+
+# notes included in same cell as results
+notes <- subset(analysis_dat_qc, repeats_code != "n" & repeats_code != "y")
+
+notes[1, 5] <- "y"
+notes[2, 5] <- "y"
+notes[3, 5] <- "y"
+notes[4, 5] <- "n"
+notes[5, 5] <- "y"
+
+
+notes_ID = notes$ID
+analysis_dat_fin = analysis_dat_qc[!(analysis_dat_qc$ID %in% notes_ID), ]
+
+analysis_dat_fin <- rbind(analysis_dat_fin, notes)
+
+unique(analysis_dat_fin$connectivity_type)
+unique(analysis_dat_fin$connectivity_measure)
+unique(analysis_dat_fin$seasonal_code)
+unique(analysis_dat_fin$repeats_code)
+
+write.csv(analysis_dat_fin, "data_clean/analysis_dat.csv", row.names = FALSE)
 
 # heat map
 ## seasonal_code, repeats_code will be stated inside the square
