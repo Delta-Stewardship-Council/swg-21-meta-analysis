@@ -134,17 +134,94 @@ write.csv(analysis_dat_fin, "data_clean/analysis_dat.csv", row.names = FALSE)
 
 # heat map
 ## seasonal_code, repeats_code will be stated inside the square
+library(dplyr)
 
 dat4plot <- analysis_dat_qc %>%
   group_by(connectivity_type, connectivity_measure) %>%
-  summarise(count = n_distinct(ID))
-
+  summarise(count = n_distinct(ID), .groups = 'drop')
 
 library(ggplot2)
 
-ggplot(df, aes(x=Price,y=Category, fill=No.Apps)) +
-  geom_tile()+
-  scale_fill_gradientn(colours=rev(heat.colors(10)))+
-  scale_x_discrete(expand=c(0,0))+
-  scale_y_discrete(expand=c(0,0))+
-  coord_fixed()
+ggplot(dat4plot, aes(x=connectivity_type,y=connectivity_measure, fill=count)) +
+  geom_tile(color = "white",
+            lwd = 1.5,
+            linetype = 1)+
+  geom_text(aes(label = count), color = "white", size = 4) +
+  scale_fill_gradient(low = "gray94", high = "black") +
+  guides(fill = guide_colourbar(barwidth = 2, barheight = 20, title = "# of Articles", ticks = FALSE)) +
+  scale_x_discrete(labels=c("none", "longitudinal", "longitudinal & lateral", "all", "longitudinal & hyporheic", "lateral", "lateral & hyporheic", "hyporheic"))
+
+# break up the commas
+# type
+library(tidyr)
+
+test_dat <- analysis_dat_fin %>%
+  separate_rows(connectivity_type, sep = ',')
+test_dat$connectivity_type <- as.numeric(test_dat$connectivity_type)
+
+# measure
+
+
+analysis_dat_fin$connectivity_measure <- gsub("[[:space:]]", "", analysis_dat_fin$connectivity_measure)
+
+analysis_dat_fin$connectivity_type <- gsub("[[:space:]]", "", analysis_dat_fin$connectivity_type)
+
+test_dat <- analysis_dat_fin %>%
+  separate_rows(connectivity_type, sep = ',')
+
+test_dat <- test_dat %>%
+  separate_rows(connectivity_measure, sep = ',')
+
+dat4combo <- test_dat %>%
+  group_by(connectivity_type, connectivity_measure) %>%
+  summarise(count = n_distinct(ID), .groups = 'drop')
+
+ggplot(dat4combo, aes(x=connectivity_type,y=connectivity_measure, fill=count)) +
+  geom_tile(color = "white",
+            lwd = 1.5,
+            linetype = 1)+
+  scale_fill_gradient(low = "gray94", high = "black") +
+  guides(fill = guide_colourbar(barwidth = 2, barheight = 30, title = "# of Articles", ticks = FALSE)) +
+  scale_x_discrete(labels=c("none", "longitudinal", "lateral", "hyporheic")) +
+  scale_y_discrete(labels=c("distance", "flow", "status", "site",
+                            "event", "correlation", "not defined",
+                            "none", "salinity")) +
+  theme_bw() +
+  xlab("Connectivity Type") + ylab("Connectivity Measure")
+
+
+# now add season and repeats
+dat4all <- test_dat %>%
+  group_by(connectivity_type, connectivity_measure, seasonal_code, repeats_code) %>%
+  summarise(count = n_distinct(ID), .groups = 'drop')
+
+dat4all$seasonal_code <- ifelse(dat4all$seasonal_code == "y", "season", "none")
+dat4all$repeats_code <- ifelse(dat4all$repeats_code == "y", "year", "none")
+
+ggplot(dat4all, aes(x=connectivity_type,y=connectivity_measure, fill=count)) +
+  geom_tile(color = "white",
+            lwd = 1.5,
+            linetype = 1)+
+  scale_fill_gradient(low = "gray94", high = "black") +
+  guides(fill = guide_colourbar(barwidth = 2, barheight = 14, title = "# of Articles", ticks = FALSE)) +
+  scale_x_discrete(labels=c("none", "longitudinal", "lateral", "hyporheic")) +
+  scale_y_discrete(labels=c("distance", "flow", "status", "site",
+                            "event", "correlation", "not defined",
+                            "none", "salinity")) +
+  theme_bw() +
+  xlab("Connectivity Type") + ylab("Connectivity Measure") +
+  facet_grid(vars(seasonal_code), vars(repeats_code))
+
+# more traditional version
+library(reshape2)
+dat4plot <- dcast(analysis_dat_qc, connectivity_type~connectivity_measure, fun = length)
+
+rownames(dat4plot) <- dat4plot[,1]
+dat4plot <- dat4plot[,-1]
+dat4plot <- data.frame(apply(dat4plot, 2, function(x) as.numeric(as.character(x))))
+
+dat4plot <- as.matrix(dat4plot)
+
+heatmap(dat4plot)
+
+# not really what I want...
