@@ -1,0 +1,70 @@
+# integrate final search (2022-06-30)
+
+# library
+library(readxl)
+library(dplyr)
+
+# data
+AFSA_chla <- read_excel("data_raw/AFSA_chla_search_results_2022-06-30.xls")
+AFSA_pro <- read_excel("data_raw/AFSA_productivity_search_results_2022-06-30.xls")
+Ag_chla <- read_excel("data_raw/AgEnvironmenalSci_chla_search_results_2022-06-30.xls")
+Ag_pro <- read_excel("data_raw/AgEnvironmentalSci_productivity_search_results_2022-06-30.xls")
+Bio_chla <- read_excel("data_raw/BiosisPreview_chla_search_results_2022-06-30.xls")
+Bio_pro <- read_excel("data_raw/BiosisPreview_productivity_search_results_2022-06-30.xls")
+Geo_chla <- read_excel("data_raw/GeoRef_chla_search_results_2022-06-30.xls")
+Geo_pro <- read_excel("data_raw/GeoRef_productivity_search_results_2022-06-30.xls")
+Zoo_chla <- read_excel("data_raw/ZooRec_chla_search_results_2022-06-30.xls")
+Zoo_pro <- read_excel("data_raw/ZooRec_productivity_search_results_2022-06-30.xls")
+
+# add db and search
+
+unique(AFSA_chla$Database)
+unique(AFSA_pro$Database)
+unique(Ag_chla$Database)# 7 different variations
+Ag_chla$Database_unique <- "Agricultural & Environmental Science Collection"
+unique(Ag_pro$Database)# 9
+Ag_pro$Database_unique <- "Agricultural & Environmental Science Collection"
+Bio_chla$Database_unique <- "BiosisPreview"
+Bio_pro$Database_unique <- "BiosisPreview"
+unique(Geo_chla$Database)
+unique(Geo_pro$Database)
+Zoo_chla$Database_unique <- "ZooRec"
+Zoo_pro$Database_unique <- "ZooRec"
+
+AFSA_chla$Database_unique <- AFSA_chla$Database
+AFSA_pro$Database_unique <- AFSA_pro$Database
+Geo_chla$Database_unique <- Geo_chla$Database
+Geo_pro$Database_unique <- Geo_pro$Database
+
+AFSA_chla$search <- "chla"
+AFSA_pro$search <- "pro"
+
+Ag_chla$search <- "chla"
+Ag_pro$search <- "pro"
+
+Bio_chla$search <- "chla"
+Bio_pro$search <- "pro"
+
+Geo_chla$search <- "chla"
+Geo_pro$search <- "pro"
+
+Zoo_chla$search <- "chla"
+Zoo_pro$search <- "pro"
+
+all_titles <- rbind(AFSA_chla[,c(1,2,8,28,47,48)], AFSA_pro[,c(1,2,7,26,43,44)], Ag_chla[,c(1,2,8,33,55,56)], Ag_pro[,c(1,2,7,31,53,54)], Geo_chla[,c(1,2,7,23,37,38)], Geo_pro[,c(1,2,7,23,37,38)])
+
+# column headers vary
+more <- rbind(Bio_chla[,c(2,10,35,34,59,60)], Bio_pro[,c(2,10,35,34,59,60)], Zoo_chla[,c(2,10,35,34,59,60)], Zoo_pro[,c(2,10,35,34,59,60)])
+
+colnames(all_titles)
+colnames(more)<- c("Authors", "Title", "Abstract", "year", "Database_unique", "search")
+
+all_titles <- rbind(all_titles, more) #465
+
+all_titles %>%
+  group_by(Database_unique) %>%
+  summarise(count = n())
+
+write.csv(all_titles, "data_clean/all_titles.csv", row.names = FALSE)
+
+# now work on removing duplicates and pulling in IDs
