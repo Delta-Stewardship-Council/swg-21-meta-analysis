@@ -89,3 +89,26 @@ table(titles_dup_removed$Database_unique)
 
 # requires some manual qc
 write.csv(titles_dup_removed, "titles_dup_removed.csv")
+
+# an additional 13 found in qc
+titles_dup_removed <- read.csv("titles_dup_removed.csv")
+titles_dup_removed_qc <- subset(titles_dup_removed, qc != "dup") # 184
+
+# get IDs
+abstract_results_all <- read_csv("data_clean/abstract_results_all.csv")
+length(unique(fin_abs$ID)) # 156
+
+R2 <- read.csv("data_raw/MB_abstract_review_Round2.csv") #7
+
+reviewed_titles <- rbind(abstract_results_all[,c(2,19)], R2[,c(1,2)])
+reviewed_titles <- unique(reviewed_titles)
+colnames(titles_dup_removed_qc)[2] <- "title"
+complete_title_db <- merge(reviewed_titles, titles_dup_removed_qc, by = "title", all = TRUE)
+
+# more manual qc
+write.csv(complete_title_db, "data_clean/complete_title_db.csv")
+
+complete_title_db <- read.csv("data_clean/complete_title_db.csv")
+complete_title_db_qc <- subset(complete_title_db, ID != "dup") # 187
+
+write.csv(complete_title_db_qc, "data_clean/complete_title_db_qc.csv", row.names = FALSE)
