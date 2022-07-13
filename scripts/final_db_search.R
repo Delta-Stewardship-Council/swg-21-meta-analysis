@@ -68,3 +68,24 @@ all_titles %>%
 write.csv(all_titles, "data_clean/all_titles.csv", row.names = FALSE)
 
 # now work on removing duplicates and pulling in IDs
+all_titles <- all_titles %>%
+  # make title lower case
+  mutate(Title = tolower(Title),
+         # strip white spaces at end/beginnings all columns
+         across(.cols=everything(), ~str_trim(.)))
+
+all_titles$Title <- str_remove(all_titles$Title, "\\.$") # remove end periods
+all_titles$Title <- gsub(pattern = "</sub>|<//sub>", "", all_titles$Title) # remove special html for subscript
+
+# remove duplicates
+titles_dup_removed <- all_titles[!duplicated(all_titles$Title),]
+dim(titles_dup_removed) #197
+table(titles_dup_removed$Database_unique)
+#Agricultural & Environmental Science Collection - 41
+#ASFA: Aquatic Sciences and Fisheries Abstracts - 77
+#BiosisPreview - 66
+#GeoRef - 10
+#ZooRec - 3
+
+# requires some manual qc
+write.csv(titles_dup_removed, "titles_dup_removed.csv")
