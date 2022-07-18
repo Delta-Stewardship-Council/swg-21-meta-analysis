@@ -107,8 +107,10 @@ complete_title_db <- merge(reviewed_titles, titles_dup_removed_qc, by = "title",
 
 # more manual qc
 write.csv(complete_title_db, "data_clean/complete_title_db.csv")
-
+# qc found 14 duplicates and 24 new titles (plus three that were in grouped search, but not in database individual search)
 complete_title_db <- read.csv("data_clean/complete_title_db.csv")
 complete_title_db_qc <- subset(complete_title_db, ID != "dup") # 187
 
 write.csv(complete_title_db_qc, "data_clean/complete_title_db_qc.csv", row.names = FALSE)
+
+
