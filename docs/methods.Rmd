@@ -25,7 +25,7 @@ summary(full_text_review)
 
 unique(full_text_review$include_exclude)
 
-length(na.omit(full_text_review$ID)) #110 articles were reviewed as full text (107 from abstract review + 3 additions from updated search (R2))
+length(na.omit(full_text_review$ID)) #115 articles were reviewed as full text (107 from abstract review + 3 additions from updated search (R2) + 5 after qc)
 ```
 
 # Results
@@ -83,25 +83,46 @@ head(abs)
 
 R2 <- read.csv("../data_raw/MB_abstract_review_Round2.csv")
 
+# last search
+
+mb_r3 <- read.csv("data_raw/additions_ab_review_MB_results.csv")
+pg_r3 <- read.csv("data_raw/additions_ab_review_PG_results.csv")
+
 a <- colnames(abs) 
 b <- colnames(R2)
-setdiff(a, b)
-setdiff(b, a)
+colnames(mb_r3) <- tolower(colnames(mb_r3))
+c <- colnames(mb_r3)
+colnames(pg_r3) <- tolower(colnames(pg_r3))
+d <- colnames(pg_r3)
+
+setdiff(a, d)
+setdiff(d, a)
 
 R2$reason <- "NA"
 
-abs <- rbind(abs[,-1], R2)
+colnames(mb_r3)[3] <- "ID"
+colnames(mb_r3)[7] <- "pub_year"
+mb_r3$consistency_check <- "NA"
 
-length(unique(abs$ID)) # 163 abstracts reviewed
+mb_r3$original_research_y_n <- ifelse(is.na(mb_r3$original_research_y_n), "n", mb_r3$original_research_y_n)
 
+colnames(pg_r3)[2] <- "ID"
+colnames(pg_r3)[6] <- "pub_year"
+pg_r3$consistency_check <- "NA"
+
+abs <- rbind(abs[,-c(1,5,7:9)], R2[,-c(5,7:9)], mb_r3[,-c(1,4,8,9)], pg_r3[,-c(3,7,8)])
+
+length(unique(abs$ID)) # 191 abstracts reviewed
+
+write.csv(abs, "data_clean/annotated_bibliography.csv")
 ```
 
 # Results
 ```{r}
 unique(abs$inclusion)
-abs_exclude <- subset(abs, inclusion == "N" | inclusion == "n" | inclusion == "unsure" | inclusion == "no") # not straight forward because of consistency check (e.g., have more results than articles)
+abs_exclude <- subset(abs, inclusion == "N" | inclusion == "n" | inclusion == "unsure" | inclusion == "no" | inclusion == "exclude" | inclusion == "n ") # not straight forward because of consistency check (e.g., have more results than articles)
 
-IDs4exclude <- unique(abs_exclude$ID) #58 (but two are added back in bc of 25% consistency check disagreement)
+IDs4exclude <- unique(abs_exclude$ID) #69 (but two are added back in bc of 25% consistency check disagreement)
 
 # check against full text review results
 a <- unique(analysis_dat$ID)
@@ -113,7 +134,7 @@ length(setdiff(a, IDs4exclude)) # 95
 abs_qc <- abs %>% 
   filter(ID %in% IDs4exclude)
 
-abs_results <- abs_qc[,c(9,10,11,13,15:19)]
+abs_results <- abs_qc[,c(7:15)]
 
 ```
 
@@ -222,6 +243,7 @@ abs_summary <- fin_abs %>%
 abs_summary
 
 write.csv(fin_abs, "data_clean/abstract_qc.csv", row.names = FALSE)
+
 
 # bring in full text results
 
