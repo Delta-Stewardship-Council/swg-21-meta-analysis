@@ -25,7 +25,7 @@ summary(full_text_review)
 
 unique(full_text_review$include_exclude)
 
-length(na.omit(full_text_review$ID)) #110 articles were reviewed as full text (107 from abstract review + 3 additions from updated search (R2))
+length(na.omit(full_text_review$ID)) #115 articles were reviewed as full text (107 from abstract review + 3 additions from updated search (R2) + 5 after qc)
 ```
 
 # Results
@@ -83,25 +83,46 @@ head(abs)
 
 R2 <- read.csv("../data_raw/MB_abstract_review_Round2.csv")
 
+# last search
+
+mb_r3 <- read.csv("data_raw/additions_ab_review_MB_results.csv")
+pg_r3 <- read.csv("data_raw/additions_ab_review_PG_results.csv")
+
 a <- colnames(abs) 
 b <- colnames(R2)
-setdiff(a, b)
-setdiff(b, a)
+colnames(mb_r3) <- tolower(colnames(mb_r3))
+c <- colnames(mb_r3)
+colnames(pg_r3) <- tolower(colnames(pg_r3))
+d <- colnames(pg_r3)
+
+setdiff(a, d)
+setdiff(d, a)
 
 R2$reason <- "NA"
 
-abs <- rbind(abs[,-1], R2)
+colnames(mb_r3)[3] <- "ID"
+colnames(mb_r3)[7] <- "pub_year"
+mb_r3$consistency_check <- "NA"
 
-length(unique(abs$ID)) # 163 abstracts reviewed
+mb_r3$original_research_y_n <- ifelse(is.na(mb_r3$original_research_y_n), "n", mb_r3$original_research_y_n)
 
+colnames(pg_r3)[2] <- "ID"
+colnames(pg_r3)[6] <- "pub_year"
+pg_r3$consistency_check <- "NA"
+
+abs <- rbind(abs[,-c(1,5,7:9)], R2[,-c(5,7:9)], mb_r3[,-c(1,4,8,9)], pg_r3[,-c(3,7,8)])
+
+length(unique(abs$ID)) # 191 abstracts reviewed
+
+write.csv(abs, "data_clean/annotated_bibliography.csv")
 ```
 
 # Results
 ```{r}
 unique(abs$inclusion)
-abs_exclude <- subset(abs, inclusion == "N" | inclusion == "n" | inclusion == "unsure" | inclusion == "no") # not straight forward because of consistency check (e.g., have more results than articles)
+abs_exclude <- subset(abs, inclusion == "N" | inclusion == "n" | inclusion == "unsure" | inclusion == "no" | inclusion == "exclude" | inclusion == "n ") # not straight forward because of consistency check (e.g., have more results than articles)
 
-IDs4exclude <- unique(abs_exclude$ID) #58 (but two are added back in bc of 25% consistency check disagreement)
+IDs4exclude <- unique(abs_exclude$ID) #69 (but two are added back in bc of 25% consistency check disagreement)
 
 # check against full text review results
 a <- unique(analysis_dat$ID)
@@ -113,7 +134,7 @@ length(setdiff(a, IDs4exclude)) # 95
 abs_qc <- abs %>% 
   filter(ID %in% IDs4exclude)
 
-abs_results <- abs_qc[,c(9,10,11,13,15:19)]
+abs_results <- abs_qc[,c(7:15)]
 
 ```
 
@@ -121,7 +142,7 @@ abs_results <- abs_qc[,c(9,10,11,13,15:19)]
 
 ```{r}
 unique(abs_results$reason)
-length(is.na(abs_results$reason)) # 75
+length(is.na(abs_results$reason)) # 86
 
 unique(abs_results$original_research_y_n)
 
@@ -130,13 +151,13 @@ abs_results$qc <- ifelse(abs_results$original_research_y_n == "meta-analysis" |
                            abs_results$original_research_y_n == "n (review)" |
                            abs_results$original_research_y_n == "n", "a", NA)
 
-abs_original_research <- subset(abs_results, qc == "a")
+abs_original_research <- subset(abs_results, qc == "a") #23
 
-IDs_original_research <- unique(abs_original_research$ID) # 11 (4 duplicates)
+IDs_original_research <- unique(abs_original_research$ID) # 19 (4 duplicates)
 
 # rewrite to filter when disagreements occur 
 abs_original_research <- abs_results %>% 
-  filter(ID %in% IDs_original_research) # added two
+  filter(ID %in% IDs_original_research) # added two (25)
 
 # chl_70 <-- was reviewed in full text stage
 # pro_3 <-- both say exclude, but have different reasons
@@ -150,7 +171,7 @@ abs_subset$qc <- ifelse(abs_subset$marine_y_n == "Y" |
                            abs_subset$marine_y_n == "y", "b", NA)
 
 abs_marine <- subset(abs_subset, qc == "b")
-IDs_marine <- unique(abs_marine$ID) #  15 (no duplicates)
+IDs_marine <- unique(abs_marine$ID) #  16 (no duplicates)
 
 # rewrite to filter when disagreements occur 
 abs_marine <- abs_subset %>% 
@@ -162,12 +183,12 @@ abs_marine <- abs_subset %>%
 abs_conn <- abs_subset %>% 
   filter(!ID %in% IDs_marine)
 
-length(unique(abs_conn$ID)) # 32
+length(unique(abs_conn$ID)) # 34
 unique(abs_conn$connectivity_metric)
 
-ID <- c("chl_10", "chl_12", "chl_15", "chl_26", "chl_28", "chl_29", "chl_39", "chl_46", "chl_5", "chl_52", "chl_59", "chl_72", "chl_76", "pro_10", "pro_12", "pro_12", "pro_13", "pro_13", "pro_19", "pro_23", "pro_29", "pro_30", "pro_30", "pro_39", "pro_4", "pro_50", "pro_50", "pro_58", "pro_58", "pro_6", "pro_60", "pro_61", "pro_61", "pro_64", "pro_64", "pro_69", "pro_69", "pro_70", "pro_74", "pro_77", "pro_77")
+ID <- c("chl_10", "chl_12", "chl_15", "chl_26", "chl_28", "chl_29", "chl_39", "chl_46", "chl_5", "chl_52", "chl_59", "chl_72", "chl_76", "pro_10", "pro_12", "pro_12", "pro_13", "pro_13", "pro_19", "pro_23", "pro_29", "pro_30", "pro_30", "pro_39", "pro_4", "pro_50", "pro_50", "pro_58", "pro_58", "pro_6", "pro_60", "pro_61", "pro_61", "pro_64", "pro_64", "pro_69", "pro_69", "pro_70", "pro_74", "pro_77", "pro_77", "r3_07", "r3_09")
 
-qc <- c("include", "a", "a", "b", "c", "a", "b", "c", "include", "c", "b", "a", "c", "b", "b", "b", "a", "a", "b", "c", "b", "b", "b", "b", "include", "include", "include", "b", "b", "include", "a", "b", "b", "b", "b", "include", "include", "b", "include", "b", "b")
+qc <- c("include", "a", "a", "b", "c", "a", "b", "c", "include", "c", "b", "a", "c", "b", "b", "b", "a", "a", "b", "c", "b", "b", "b", "b", "include", "include", "include", "b", "b", "include", "a", "b", "b", "b", "b", "include", "include", "b", "include", "b", "b", "b", "c")
 
 fin_abs <- data.frame(ID, qc)
 
@@ -195,7 +216,16 @@ abs_marine[8,10] <- "b" # pro_53
 
 fin_abs <- rbind(fin_abs, abs_marine[,c(8,10)], abs_original_research[,c(8,10)])
 
-length(unique(fin_abs$ID)) #58
+length(unique(fin_abs$ID)) #69
+
+check <- unique(fin_abs$ID)
+setdiff(IDs4exclude, check) #
+
+abs_summary <- fin_abs %>%
+  group_by(qc) %>%
+  summarise(count = n_distinct(ID))
+
+abs_summary
 
 ```
 # Final for analysis 
@@ -207,21 +237,16 @@ fin_ID <- unique(fin_abs$ID)
 fin_abs_qc <- abs %>% 
   filter(!ID %in% fin_ID)
 
-length(unique(fin_abs_qc$ID)) # 105
+length(unique(fin_abs_qc$ID)) # 122 (add 9 from qc, total = 131)
 
-# 163 abstracts reviewed, 204 reviews total bc of consistency check
+# 191 abstracts reviewed, 232 reviews total bc of consistency check
 
 fin_abs_qc$qc <- "include"
 
-fin_abs <- rbind(fin_abs, fin_abs_qc[,c(18,20)])
-
-abs_summary <- fin_abs %>%
-  group_by(qc) %>%
-  summarise(count = n_distinct(ID))
-
-abs_summary
+fin_abs <- rbind(fin_abs, fin_abs_qc[,c(14,16)])
 
 write.csv(fin_abs, "data_clean/abstract_qc.csv", row.names = FALSE)
+
 
 # bring in full text results
 
