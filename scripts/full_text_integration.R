@@ -124,3 +124,30 @@ fta_r2$primary_productivity_metric <- "NA"
 full_text_review <- rbind(fta_dc, fta_pg, fta_mb, fta_ly, fta_es, fta_cp, fta_rp, fta_r2)
 
 write.csv(full_text_review, "data_clean/full_text_review_results.csv")
+
+
+# add qc results
+fta_qc <- read_excel("data_raw/Fulltext_Analysis_qc_PG.xlsx", sheet = "full_text")
+
+full_text_review <- read.csv("data_clean/full_text_review_results.csv")
+
+a <- colnames(full_text_review) # should all have 50 columns
+b <- colnames(fta_qc)
+setdiff(a, b)
+setdiff(b, a)
+
+full_text_review_qc <- rbind(full_text_review[,-1], fta_qc)
+
+length(unique(full_text_review_qc$ID)) # 116
+
+write.csv(full_text_review_qc, "data_clean/full_text_review_results.csv", row.names = FALSE)
+
+
+# add results from 3rd search
+full_text_review_qc <- read_csv("data_clean/full_text_review_results.csv")
+r3_full_text_mb <- read.csv("data_raw/additions_fulltext_review_MB_results.csv")
+r3_full_text_pg <- read_excel("data_raw/r3_full_text_pg.xlsx", sheet = "template")
+
+full_text_review_qc_update <- rbind(full_text_review_qc, r3_full_text_mb, r3_full_text_pg)
+
+write.csv(full_text_review_qc_update, "data_clean/full_text_review_results_update.csv", row.names = FALSE)
