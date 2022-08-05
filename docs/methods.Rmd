@@ -312,6 +312,21 @@ dat4ft %>%
 
 write.csv(dat4ft, "data_clean/full_text_qc.csv", row.names = FALSE)# updated
 
+# round 3
+dat4ft <- read.csv("data_clean/full_text_qc.csv")
+
+library(readxl)
+r3_full_text_mb <- read.csv("data_raw/additions_fulltext_review_MB_results.csv") 
+r3_full_text_pg <- read_excel("data_raw/r3_full_text_pg.xlsx", sheet = "template")
+
+update <- rbind(r3_full_text_mb[,c(1,43)], r3_full_text_pg[,c(1,43)])
+colnames(update)[2] <- "qc"
+update$stage <- "full_text_review"
+
+dat4ft_update <- rbind(dat4ft, update)
+
+write.csv(dat4ft_update, "data_clean/full_text_updated.csv", row.names = FALSE)# updated
+
 ft <- unique(dat4ft$ID)
 abs <- unique(fin_abs$ID)
 setdiff(abs, ft)
