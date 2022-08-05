@@ -125,16 +125,16 @@ abs_exclude <- subset(abs, inclusion == "N" | inclusion == "n" | inclusion == "u
 IDs4exclude <- unique(abs_exclude$ID) #69 (but two are added back in bc of 25% consistency check disagreement)
 
 # check against full text review results
-a <- unique(analysis_dat$ID)
+a <- unique(dat4ft_update$ID)
 b <- unique(abs$ID)
 setdiff(a, b)
-length(setdiff(b, a)) # 65
-length(setdiff(a, IDs4exclude)) # 95
+length(setdiff(b, a)) # 59
+length(setdiff(a, IDs4exclude)) # 122
 
 abs_qc <- abs %>% 
   filter(ID %in% IDs4exclude)
 
-abs_results <- abs_qc[,c(7:15)]
+abs_results <- abs_qc[,c(8:16)]
 
 ```
 
@@ -348,6 +348,38 @@ intersect(a, include)
 include_check <- subset(fin_abs, qc == "include")
 length(unique(include_check$ID))
 include <- unique(include_check$ID)
+
+```
+
+```{r}
+dat4ft_update <- read.csv("data_clean/full_text_updated.csv")
+full_text_review_qc_update <- read.csv("data_clean/full_text_review_results_update.csv")
+
+fin_abs <- read.csv("data_clean/abstract_qc.csv")
+fin_abs$stage <- "abstract_review"
+
+a <- unique(dat4ft_update$ID) #132
+b <- unique(full_text_review_qc_update$ID) #133
+c <- unique(fin_abs$ID)
+
+setdiff(b, a) # just an NA
+setdiff(c,a) # 59 instead of 60
+
+dat4ft_update %>%
+  group_by(qc) %>%
+  summarise(count = n_distinct(ID))
+
+new_full_text <- merge(dat4ft_update, full_text_review_qc_update, by = "ID")
+new_full_text_include <- subset(new_full_text, qc == "include")
+
+missing <- setdiff(c,a)
+
+fin_abs %>% 
+  filter(ID %in% missing)
+
+setdiff(check,missing) # chl_7 is the issue
+# it was excluded (a) during abstract review, but somehow made it to full text (also exlcuded based on non research article)
+fin_abs_missing <- subset(fin_abs, qc != "include")
 
 ```
 
