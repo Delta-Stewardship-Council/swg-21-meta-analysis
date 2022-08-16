@@ -73,6 +73,19 @@ full_text <- subset(full_text_review, include_exclude != "exclude" & include_exc
 analysis_dat <- rbind(full_text, pro_48, pro_42, chl_13, chl_70, pro_5) #98 total articles for analysis
 
 write.csv(analysis_dat, "data_clean/analysis_dat.csv", row.names = FALSE)
+
+# need to add round 3 (should be 119 IDs)
+
+r3_full_text_mb <- read.csv("data_raw/additions_fulltext_review_MB_results.csv")
+r3_full_text_pg <- read_excel("data_raw/r3_full_text_pg.xlsx", sheet = "template")
+
+r3 <- rbind(r3_full_text_mb, r3_full_text_pg)
+
+unique(r3$include_exclude)
+
+analysis_dat_updated <- rbind(analysis_dat, r3)
+
+write.csv(analysis_dat_updated, "data_clean/analysis_dat_updated.csv", row.names = FALSE)
 ```
 
 ## Abstract review

@@ -38,7 +38,8 @@ mb_exclude <- subset(fta_mb, include_exclude == "exclude")
 
 # fine
 
-fta_es <- read_csv("data_raw/Fulltext_Analysis_Template_ebs_060122.csv")
+fta_es <- read_csv("data_raw/Fulltext_Analysis_Template_ebs_060322.csv")
+unique(fta_es$include_exclude)
 
 # all "include"
 
@@ -59,3 +60,9 @@ dc_exclude <- subset(fta_dc, include_exclude == "exclude")
 
 
 # also need to check abstract review responses
+abs <- fta_rp <- read.csv("data_clean/abstract_results_all.csv")
+head(abs)
+abs_check <- abs[,c(10:12,14,16:20)]
+unique(abs_check$inclusion)
+abs_exclude <- subset(abs_check, inclusion == "N" | inclusion == "n" | inclusion == "unsure")
+

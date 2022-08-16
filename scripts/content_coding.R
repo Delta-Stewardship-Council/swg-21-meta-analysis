@@ -5,12 +5,12 @@ library(tidyr)
 full_text_review <- read.csv("data_clean/full_text_review_results.csv")
 head(full_text_review)
 cc_results <- full_text_review[,c(2:6)]
-# NAs not dilpalying correctly
+# NAs not displaying correctly
 cc_results[cc_results == "na"]=NA
 head(cc_results)
 cc_results <- na.omit(cc_results) #loose 23
 
-# responses were not consistant
+# responses were not consistent
 unique(cc_results$connectivity_type)
 cc_results$connectivity_type <- ifelse(cc_results$connectivity_type == "lateral", "2",
                                        ifelse(cc_results$connectivity_type == "lateral, longitudinal", "1, 2",
