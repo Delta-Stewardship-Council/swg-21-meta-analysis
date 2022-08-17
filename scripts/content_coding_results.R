@@ -56,7 +56,7 @@ dat4combo <- test_dat %>%
   summarise(count = n_distinct(ID), .groups = 'drop')
 
 # now add season and repeats
-dat4all <- test_dat %>%
+dat4all <- content_coding_results_decomposed %>%
   group_by(connectivity_type, connectivity_measure, seasonal_code, repeats_code) %>%
   summarise(count = n_distinct(ID), .groups = 'drop')
 
