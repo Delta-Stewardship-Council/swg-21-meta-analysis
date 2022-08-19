@@ -13,49 +13,194 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(dplyr)
 library(tidyr)
+library(stringr)
+library(readr)
+library(ggplot2)
+
+library(sf)
+library(ggplot2)
+library(leaflet)
+library(scales)
+library(ggmap)
+library(dplyr)
+library(rworldmap)
+library(stringr)
 ```
 
 #Load data
 ```{r}
 chl_data <- read.csv("data_clean/chl_extraction_all.csv")
+#cc <- read.csv("data_clean/analysis_dat.csv", check.names = F) #for some reason read.csv does not work with this file 
+cc <- read_csv("data_clean/analysis_dat.csv")
 ```
 
 #How many papers have chlorophyll, error, and sample size?
 ```{r}
-#remove rows that have NA in both the mean and mix/max columns (e.g. have no chlorophyll data)
-#chl <- chl_data %>% 
+
+#how many papers were included in the extraction datasheet
+length(unique(chl_data$ID)) #41
+
+#How many papers have mean chlorophyll?
+##remove rows that have NA the mean column
+chl <- chl_data %>% 
+  drop_na(mean_chl)
   
 #count remaining articles
-length(unique(chl$ID))
+length(unique(chl$ID)) #31
+#Ryan estimated values from figures for article IDs 68,41,33,22, so removing those from tally = 27 articles with chlorophyll data available in text; none of these had errors reported so will be filtered out in the next step
+
+#removing articles where mean chlorophyll was estimated from figures
+#chl <- chl %>% 
+ # filter(!grepl('estimated from', notes)) #removes 22 observations belonging to four articles, but the "estimated from" notes were not always repeated for all rows from a given article, so need to removed based on article ID instead
+
+chl <- chl %>% 
+  filter(ID != "chl_33" & ID != "chl_22" & ID != "chl_41" & ID != "chl_68") #removes 30 observations and four articles 
+
+length(unique(chl$ID)) #27
+
+
+#How many papers have min and max chlorophyll?
+min_max <- chl_data %>% 
+  drop_na(max_chl) %>% 
+  drop_na(min_chl) %>% 
+  filter(is.na(mean_chl))
+
+length(unique(min_max$ID)) 
+#11 articles with both min and max, but overlap with papers that also have chlorophyll
+#2 articles that have both min and max but no chlorophyll (so working with min and maxes doesn't give a lot of new information)
+
+#continuing with subset of papers that have mean chlorophyll...
 
 #remove rows that have NA in the error column
-cerror <- chl %>% 
+chlerror <- chl %>% 
   drop_na(error_chl)
 
 #count remaining articles
-length(unique(cerror$ID))
+length(unique(chlerror$ID)) #17
 
 #remove rows that do not have sample size 
 unique(error)
-cn <- cerror %>% 
+chln <- chlerror %>% 
   drop_na(sample_size)
 
+length(unique(chln$ID)) #11
 ```
+
+#How are the data points distributed among papers?
+```{r}
+byarticle <- chl %>% 
+  group_by(ID) %>% 
+  summarize(count = n())
+
+bp <- ggplot(data=byarticle, aes(x=ID, y=count)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle=90, vjust = 0.5)) +
+  ggtitle("Number of chlorophyll means per article")
+
+bp
+
+#article chl_32 has about 60 data points, other papers range from 2-20 data points
+```
+
+
+#Data in figures
+```{r}
+#How many articles had (more) chl data available in figures?
+
+#filter original data set for articles that include "plot" or "figure" in the notes
+chlfigure <- chl_data %>% 
+  filter(grepl('plot|figure', notes))
+
+#count articles
+length(unique(chlfigure$ID)) #12
+
+#How many of those articles did not report chlorophyll mean in the text?
+chlfigonly <- chlfigure %>% 
+  filter(is.na(mean_chl))
+
+length(unique(chlfigonly$ID)) #6 articles, of which 2 had min and max reported 
+#+4 that Ryan estimated from the figures => 10 articles with data in figures that were not reported in the text 
+
+```
+
+#Chlorophyll and content coding
+```{r}
+
+chlcc <- left_join(x = chl, y = cc, by="ID")
+
+#create content coding heatmap with just the papers that have chlorophyll means
+
+ggplot(chlcc, aes(x=connectivity_type,y=connectivity_measure, fill=count)) +
+  geom_tile(color = "white",
+            lwd = 1.5,
+            linetype = 1)+
+  scale_fill_gradient(low = "gray94", high = "black") +
+  guides(fill = guide_colourbar(barwidth = 2, barheight = 30, title = "# of Articles", ticks = FALSE)) +
+  scale_x_discrete(labels=c("none", "longitudinal", "lateral", "hyporheic")) +
+  scale_y_discrete(labels=c("distance", "flow", "status", "site",
+                            "event", "correlation", "not defined",
+                            "none", "salinity")) +
+  theme_bw() +
+  xlab("Connectivity Type") + ylab("Connectivity Measure")
+
+ggplot(chlcc, aes(x = connectivity_type, y = connectivity_measure)) +
+  geom_bin2d() #+
+  #facet_grid(vars(seasonal_code), vars(repeats_code))
+
+```
+
 
 #Explore chlorophyll by connectivity category
 ```{r}
 #view the connectivity categories in data set
-unique(chl_data$connectivity_categorical) #lots of variation in entries, not standardized to connected/disconnected
-
-#Make a column with a more standardized connectivity category 
-##For the purposes of data exploration. This column is based on my interpretation of the original connectivity_categorical column (e.g. "isolated" interpreted as "disconnected"; "connected stream" converted to "connected"). When no clear interpretation was available (e.g. "downstream"?), the value was "unclear"
-
-chl <- chl_data %>% 
-  mutate(mbconnectivity = connectivity_categorical) %>% 
-  replace(mbconnectivity)
+unique(chl_data$connectivity_categorical) #lots of variation in entries, not standardized to connected/disconnected. There are 51 unique entries in this column. Some can be easily converted (e.g. isolated to disconnected), but others are hard to interpret (e.g. Downstream?) and others seem not relevant to connectivity status (e.g. values for paper ID chl_50 such as "community respiration")
 
 
+```
+
+#Plot chlorophyll
+```{r}
+hist(chl$mean_chl, main = "Histogram of mean chlorophyll", xlab = "mean chlorophyll", ylab = "Number of data points")
+
+chl50 <- chl %>% 
+  filter(mean_chl <= 50)
+
+hist(chl50$mean_chl, main = "Mean chlorophyll values less than or equal to 50", xlab = "mean chlorophyll", ylab = "Number of data points")
 
 
+```
+
+
+#Spatial distribution of chlorophyll data
+```{r}
+#check on country name cleaning
+unique(chlcc$country)
+#needs cleaning: usa, Coatia, Mexico and Guatemala, china 
+
+chlcc$country <- replace(chlcc$country, chlcc$country=="usa", "USA")
+chlcc$country <- replace(chlcc$country, chlcc$country=="Coatia", "Croatia")
+chlcc$country <- replace(chlcc$country, chlcc$country=="china", "China")
+#replace ands with commas 
+chlcc$country <- str_replace_all(chlcc$country, " and ", ",") 
+#split into multiple rows by commas
+chlcc <- chlcc %>% 
+  separate_rows(country, sep = ',')
+
+#create table of counts per country
+byIDcountry <- chlcc %>% 
+  group_by(ID, country) %>% 
+  summarize(count = n())
+
+bycountry <- byIDcountry %>% 
+  group_by(country) %>% 
+  summarize(count = n())
+
+world <- map_data("world")
+
+world %>% 
+  merge(bycountry, by.x="region", by.y = "country", all.x = T) %>% 
+  arrange(group,order) %>% 
+  ggplot(aes(x = long, y = lat, group=group, fill=count)) +
+  geom_polygon()
 ```
 
