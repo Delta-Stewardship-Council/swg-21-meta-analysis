@@ -16,4 +16,4 @@ chl_mean <- chl_mean %>%
   filter(ID != "chl_33" & ID != "chl_22" & ID != "chl_41" & ID != "chl_68")
 
 #save mean chlorophyll data set
-write.csv(chl_mean, "data_clean/chl_means.csv")
+write.csv(chl_mean, "data_clean/chl_means.csv", row.names = FALSE)
