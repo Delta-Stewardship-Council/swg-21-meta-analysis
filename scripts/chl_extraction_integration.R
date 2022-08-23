@@ -30,4 +30,4 @@ chl_dc <- chl_dc %>%
 chl_all <- rbind(chl_group, chl_dc, chl_es, chl_mb3, chl_pg3)
 
 #save integrated data set
-write.csv(chl_all, "data_clean/chl_extraction_all.csv")
+write.csv(chl_all, "data_clean/chl_extraction_all.csv", row.names=FALSE)
