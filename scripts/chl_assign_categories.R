@@ -51,3 +51,6 @@ chl <- chl %>%
 
 unique(chl$connectivity)
 
+#save data set with category assignment
+write.csv(chl, "data_clean/chl_means_categorical.csv", row.names = FALSE)
+
