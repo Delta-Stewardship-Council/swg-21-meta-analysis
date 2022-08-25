@@ -1,0 +1,123 @@
+"","ID","chlorophyll_response"
+"1","chl_16","ug/l"
+"2","pro_48","na"
+"3","chl_56","ug/l"
+"4","chl_27","ug/l"
+"5","chl_6","ug/l of Chla a, b, c"
+"6","pro_56","ug/l"
+"7","chl_74","na"
+"8","chl_48","ug/l"
+"9","pro_38","na"
+"10","chl_37","ug/l of s-Chla and b-chla"
+"11","chl_19","ug/l"
+"12","chl_20","decrease"
+"13","chl_31","decrease"
+"14","chl_38","decreased"
+"15","chl_49","increase"
+"16","chl_57","decreased with fragmentation"
+"17","chl_65","decreased"
+"18","chl_75","decreased"
+"19","chl_9",NA
+"20","pro_35",NA
+"21","pro_52",NA
+"22","pro_54",NA
+"23","pro_55",NA
+"24","pro_57","increased"
+"25","chl_23",NA
+"26","chl_34","increase"
+"27","chl_42",NA
+"28","chl_53","increase"
+"29","chl_61","mixed"
+"30","chl_69","decrease"
+"31","chl_79","increase"
+"32","pro_11",NA
+"33","pro_17",NA
+"34","pro_22",NA
+"35","pro_51","mixed"
+"36","pro_76",NA
+"37","chl_4","decrease from isolation to flood"
+"38","chl_25","spatial CV of chlorophyll decreased"
+"39","chl_36","chl-a range was similar in mainstem rivers in HW and LW and increased in floodplain lakes in LW."
+"40","chl_55","chl-a 18 times higher in isolated vs. connected lakes, and did not vary by season; chl-a related to TP in connected lakes, and to turbidity in isolated lakes"
+"41","chl_63","water level, Zd:Zeu (inverse correlation) and conductivity (direct correlation) significantly explained Chl-a concentrations. Highest chl at low water"
+"42","chl_8","increase in hypereutrophic events (chl-a > 50 ug/L) since late 1970s; cyanobacterial bloom during Sept 2010-March 2011 (same as months of study) with a peak in chl-a and cyanobacterium species in wet season"
+"43","pro_67","decrease of wetland chl-a to level of river during long/high and short/high floods, and increased wetland chl-a during short/low magnitude flood"
+"44","pro_43","medium primary productivity during disconnected phase, high during seepage phase, low during connected phase"
+"45","pro_40","NA (no chl response to longitudinal connectivity discussed, only metabolism)"
+"46","pro_31","NA (no chl response, but NO3 removal increased with higher river stage)"
+"47","pro_34","NA (no chl response)"
+"48","pro_42",NA
+"49","chl_18","NA (chl-a only reported on related to zooplankton beta diversity)"
+"50","chl_44","chl-a and inorganic suspended solids were correlated, otherwise chl-a treated as predictor"
+"51","chl_73","chl-a increased with increasing temperatures and other general seasonal patterns, and productivity also increased during low water periods with increasing water age when main and side arm channels were not connected for benthic production, while pelagic production occurred at medium water ages; chl-a not related to discharge"
+"52","chl_32","mixed, chl used as predictor of surface water trajectories but in my own analysis, the mean connected lakes chl concentrations were higher in two of the three seasons relative to disconnected lakes, also mixed results between surface water chemistry trajectories"
+"53","chl_40","increase, chlorophyll increases following rainfall event with increase of freshwater flows to the estuary"
+"54","chl_50","mixed, modest chl response to increased nutrients in lake habitat, no effect on riverine and wetland habitat"
+"55","chl_58","increase, chl increasing with decreasing aquatic plant species richness, decreasing aquatic plant species also occurred with increasing time since lake disturbance"
+"56","chl_66","NA, chla used as predictor, mean chla was a relatively important predictor of any response variable"
+"57","chl_77","decrease ,under dry conditions â low water period and reduced connectivity between floodplain and river -  higher concentrations of Chl-a observed, with increasing river stage there were higher concentrations of Chl-b and Chl-c relative to Chl-a
+"
+"58","pro_27",NA
+"59","pro_71",NA
+"60","pro_68","mixed, increased chla with moderate integration time, lower concentrations exist with low and high integration time"
+"61","pro_66","increase"
+"62","pro_62",NA
+"63","pro_49",NA
+"64","chl_11","NA, chla increased steadily with eutrophication,  effects of hydrological fluctuation were minor bc itshowed strong interaction with chla affecting cladoceran measures"
+"65","chl_21","mixed, Chl-a concentration in the lakes with relative depth less than 0.09 were significantly higher than those with  relative depth greater than 0.09 - Table 2; Chl-a in the lakes hydraulically connected with rivers were lower than in the isolated lakes (Table 3); chl tended to increase with increase of relative depth for the lakes with spatial area less than 25 km2 and decrease with increase of relative depth for lakes with spatial area greater than 25 km2"
+"66","chl_17","decrease in connected channel areas (higher in backwater). Exceptions may be due to times when N is limiting, when low discharge increases residence time in main channel, when high veg shades production."
+"67","chl_3","decrease in high water period; during low water, increase in more connected habitats"
+"68","chl_35","not significant; highest chla- in spring, contribution of chla to POC highest in autumn/winter and higher in floodplain. Above 3000m^3/s, decrease in concentrations."
+"69","chl_43","not significant; decrease with higher WL but not sure it was significant"
+"70","chl_54","decrease"
+"71","chl_62","increase with flow path length, decrease with % wetland, increase with lake connectivity"
+"72","chl_71","not significant"
+"73","pro_18","greater at more connected lake"
+"74","pro_20","chlorophyll is a predictor"
+"75","pro_24",NA
+"76","pro_33",NA
+"77","pro_7",NA
+"78","chl_13","none"
+"79","chl_22","mixed"
+"80","chl_33","mixed"
+"81","chl_41","mixed"
+"82","chl_51","mixed"
+"83","chl_60","mixed"
+"84","chl_68","mixed"
+"85","chl_70","none"
+"86","chl_78","mixed"
+"87","pro_15","none"
+"88","pro_21","increase"
+"89","pro_44","none"
+"90","pro_5","none"
+"91","pro_69","none"
+"92","pro_75","none"
+"93","r2_01","decrease"
+"94","r2_02",NA
+"95","r2_03","decrease"
+"96","r2_05",NA
+"97","r2_07","decrease"
+"98","chl_5","Chl-a showed higher correlations with TN in both dry and rainy seasons"
+"99","chl_10","Algal cell density and chlorophyll a concentration were significantly higher at sites with hyporheic discharge (+VHG, upwelling) compared to both sites with hyporheic recharge (-VHG, downwelling) and sites
+
+
+with no hyporheic-surface water exchange (=VHG, neutral) (ANOVA, P\0.05). The assemblages of algae at upwelling sites were also significantly different from downwelling and neutral exchange sites (ANOSIM, P\0.05). Filamentous green algae Stigeoclonium sp. and Zygnema sp. and a chrysophyte, Hydrurus foetidus (Villars) Trevisan were abundant at upwelling sites, whereas an assemblage of diatoms Achnanthidium minutissimum (KuÂ¨tzing) Czarnecki, Cymbella excisa KuÂ¨tzing, Diatoma moniliformis KuÂ¨tzing, and Gomphonema olivaceoides Hustedt, were the most abundant taxa at downwelling and neutral exchange sites, occurring attached to, or in close association with the stalks of Didymosphenia geminata (Lyngbye) Schmidt."
+"100","pro_4","Our results stress the importance of primary production in sustaining Bacterial secondary production in backwaters with a connectivity gradient. Nonetheless,the only modest variation of Bacterial secondary production compared to more dynamic primary production (the rate of carbon fixed in particulate organic matter (pPP), the rate of dissolved organic carbon released extracellularly by phytoplankton, and chl a) demonstrates that organic matter derived from sources other than phyto-planktonal sosupported  Bacterial secondary production in this river-floodplain system. chla (ugl -1) was highest in system I, intermediate in system II and lowerst in system III (statistically significant, data in Figure 2B)"
+"101","pro_74","not analysed"
+"102","r3_25",NA
+"103","r3_01",NA
+"104","r3_05","decrease"
+"105","r3_13","increase"
+"106","r3_15",NA
+"107","r3_17",NA
+"108","r3_19",NA
+"109","r3_21",NA
+"110","r3_23","decrease"
+"111","r3_02",NA
+"112","r3_08","chl results not reported"
+"113","r3_10",NA
+"114","r3_14","The chlorophyll-a concentration was significantly higher (p = 0.003) in the tributaries when compared to the reservoirs. Considering the intra-reservoir variability a significant decreasing tendency from upstream to the dam (p = 0.001) was observed. Chlorophyll-a concentrations were higher in summer for both studied years. Longitudinally, chlorophyll values were higher in the middle basin reservoirs."
+"115","r3_16",NA
+"116","r3_18","Concurrently during low discharge, concentrations of chlorophyll, volatile suspended solids, and total phosphorus were higher."
+"117","r3_22","Chlorophyll concentrations increased in summer strongly in the large lakes, whereas increases were highly variable in remote lakes and lowest in inflow lakes."
+"118","r3_24","variable, lots of data in tables"
