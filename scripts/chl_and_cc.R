@@ -50,3 +50,16 @@ ggplot(data=cc_dec_chl_simple_g, aes(mean_chl, connectivity_measure)) +
   theme_bw() +
   xlab("Mean Chlorophyll") + ylab("Connectivity Measure") +
   facet_grid(vars(connectivity_type),vars(connect_binary))
+
+# add locations
+chl_ID <- unique(chl$ID)
+analysis_dat <- read.csv("data_clean/analysis_dat_updated.csv")
+analysis_dat_chl <- analysis_dat[analysis_dat$ID %in% chl_ID,]
+
+# four did not have enough detail
+title_ID <- c("chl_32", "r2_02", "r3_05", "r3_23")
+titles <- read.csv("data_clean/complete_title_db_qc.csv")
+titles_chl <- titles[titles$ID %in% title_ID,]
+
+#chl_36 is the only one that varied across locations
+chl_36 <- subset(chl, ID == "chl_36")
