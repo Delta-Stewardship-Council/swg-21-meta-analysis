@@ -21,9 +21,6 @@ ggplot(data=cc_chl, aes(mean_chl, connectivity_measure)) +
 dat_g <- subset(cc_chl, connectivity_measure == "g")
 unique(dat_g[,c(1,20)])
 
-dat_g <- subset(cc_chl, connectivity_measure == "g")
-
-
 cc_dec_chl_simple <- subset(cc_dec_chl, connectivity_type != 0 & connectivity_type != 3)
 
 unique(cc_dec_chl_simple$connect_binary)
@@ -63,3 +60,43 @@ titles_chl <- titles[titles$ID %in% title_ID,]
 
 #chl_36 is the only one that varied across locations
 chl_36 <- subset(chl, ID == "chl_36")
+
+# add FRESHWATER ECOREGIONS OF THE WORLD
+head(cc_dec_chl_simple_g)
+
+chl_loc <- read.csv("data_raw/chl_location.csv")
+chl_plot <- merge(cc_dec_chl_simple_g, chl_loc, by = "ID", all.x = TRUE)
+
+head(chl_plot)
+
+ggplot(data=chl_plot, aes(mean_chl, connectivity_measure, color = connect_binary)) +
+  geom_boxplot() +
+  scale_y_discrete(labels=c("distance", "flow", "status", "site",
+                            "event", "correlation", "not defined",
+                            "none", "salinity")) +
+  theme_bw() +
+  xlab("Mean Chlorophyll") + ylab("Connectivity Measure") +
+  facet_grid(vars(Realm), vars(connectivity_type))
+
+ggplot(data=chl_plot, aes(mean_chl, connectivity_measure, color = connect_binary)) +
+  geom_boxplot() +
+  scale_y_discrete(labels=c("distance", "flow", "status", "site",
+                            "event", "correlation", "not defined",
+                            "none", "salinity")) +
+  theme_bw() +
+  xlab("Mean Chlorophyll") + ylab("Connectivity Measure") +
+  facet_grid(vars(Major_Habitat_Type),vars(Realm))
+
+unique(chl_loc$Major_Habitat_Type)
+
+ggplot(data=chl_plot, aes(mean_chl, connectivity_measure, color = Realm)) +
+  geom_boxplot() +
+  facet_grid(vars(connect_binary),vars(connectivity_type))
+
+unique(chl_plot$connect_tri)
+
+chl_plot$connect_tri <- ifelse(is.na(chl_plot$connect_tri), "unclear", chl_plot$connect_tri)
+
+ggplot(data=chl_plot, aes(mean_chl, connectivity_measure, color = Realm)) +
+  geom_boxplot() +
+  facet_grid(vars(connect_tri),vars(connectivity_type))
