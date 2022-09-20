@@ -62,18 +62,19 @@ titles_chl <- titles[titles$ID %in% title_ID,]
 chl_36 <- subset(chl, ID == "chl_36")
 
 # add FRESHWATER ECOREGIONS OF THE WORLD
-head(cc_dec_chl_simple_g)
+head(cc_dec_chl)
 
 chl_loc <- read.csv("data_raw/chl_location.csv")
-chl_plot <- merge(cc_dec_chl_simple_g, chl_loc, by = "ID", all.x = TRUE)
+chl_plot <- merge(cc_dec_chl, chl_loc, by = "ID", all.x = TRUE)
 
 head(chl_plot)
+unique(chl_plot$connectivity_measure)
 
 ggplot(data=chl_plot, aes(mean_chl, connectivity_measure, color = connect_binary)) +
   geom_boxplot() +
   scale_y_discrete(labels=c("distance", "flow", "status", "site",
-                            "event", "correlation", "not defined",
-                            "none", "salinity")) +
+                            "event", "not defined",
+                            "none")) +
   theme_bw() +
   xlab("Mean Chlorophyll") + ylab("Connectivity Measure") +
   facet_grid(vars(Realm), vars(connectivity_type))
@@ -81,8 +82,8 @@ ggplot(data=chl_plot, aes(mean_chl, connectivity_measure, color = connect_binary
 ggplot(data=chl_plot, aes(mean_chl, connectivity_measure, color = connect_binary)) +
   geom_boxplot() +
   scale_y_discrete(labels=c("distance", "flow", "status", "site",
-                            "event", "correlation", "not defined",
-                            "none", "salinity")) +
+                            "event", "not defined",
+                            "none")) +
   theme_bw() +
   xlab("Mean Chlorophyll") + ylab("Connectivity Measure") +
   facet_grid(vars(Major_Habitat_Type),vars(Realm))
