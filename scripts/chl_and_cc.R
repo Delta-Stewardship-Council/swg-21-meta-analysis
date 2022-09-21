@@ -101,3 +101,19 @@ chl_plot$connect_tri <- ifelse(is.na(chl_plot$connect_tri), "unclear", chl_plot$
 ggplot(data=chl_plot, aes(mean_chl, connectivity_measure, color = Realm)) +
   geom_boxplot() +
   facet_grid(vars(connect_tri),vars(connectivity_type))
+
+chl_plot$connectivity_type <- ifelse(chl_plot$connectivity_type == 1, "longitudinal",
+                                                ifelse(chl_plot$connectivity_type ==2, "lateral",
+                                                       ifelse(chl_plot$connectivity_type == 0, "none",
+                                                              ifelse(chl_plot$connectivity_type ==3, "hyporheic",
+                                                       chl_plot$connectivity_type))))
+
+
+# if we use this we dont need to decompose
+ggplot(data=chl_plot, aes(mean_chl, connectivity_measure, color = connectivity_type)) +
+  geom_boxplot() +
+  facet_grid(vars(connect_tri),vars(Realm))
+
+# need to follow up with these
+unclear <- subset(chl_plot, connect_tri == "unclear")
+unique(unclear[,c(1:2)])
