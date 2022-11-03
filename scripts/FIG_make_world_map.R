@@ -19,7 +19,17 @@ library(rnaturalearth) # another base layer of data for world stuff
 library(ggspatial) # for scales and compasses in ggplot2
 
 # Load data -------------
+
 data <- read.csv("data_clean/analysis_dat_updated.csv")
+
+# read in the habitat layer (shapefile with ID and area, NO NAMES)
+hab <- sf::st_read("data_raw/GIS/feow_hydrosheds.shp")
+
+# if you need to drop the geometry component
+#st_drop_geometry(hab) %>% head()
+
+# quick plot
+plot(hab$geometry)
 
 # Clean data --------------
 
