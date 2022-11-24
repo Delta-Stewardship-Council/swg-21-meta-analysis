@@ -90,6 +90,23 @@
 		<name>NCEAS_metanalysis_sites</name>
 		<open>1</open>
 		<Placemark>
+			<name>chl_11</name>
+			<LookAt>
+				<longitude>102.8544418160987</longitude>
+				<latitude>24.35611131545138</latitude>
+				<altitude>0</altitude>
+				<heading>0.02732088613513619</heading>
+				<tilt>0</tilt>
+				<range>28196.05597526045</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>102.8059741820394,24.37894822722052,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
 			<name>chl_13</name>
 			<LookAt>
 				<longitude>16.13774192718483</longitude>
@@ -107,20 +124,27 @@
 			</Point>
 		</Placemark>
 		<Placemark>
-			<name>chl_11</name>
+			<name>chl_14</name>
 			<LookAt>
-				<longitude>102.8544418160987</longitude>
-				<latitude>24.35611131545138</latitude>
+				<gx:TimeStamp><when>2020-07-24</when>
+</gx:TimeStamp>
+				<gx:ViewerOptions>
+					<gx:option name="historicalimagery"></gx:option>
+					<gx:option enabled="0" name="sunlight"></gx:option>
+					<gx:option enabled="0" name="streetview"></gx:option>
+				</gx:ViewerOptions>
+				<longitude>-82.37297772487081</longitude>
+				<latitude>39.29407417161286</latitude>
 				<altitude>0</altitude>
-				<heading>0.02732088613513619</heading>
+				<heading>0.01082697532951269</heading>
 				<tilt>0</tilt>
-				<range>28196.05597526045</range>
+				<range>14453.92358845779</range>
 				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
 			</LookAt>
-			<styleUrl>#m_ylw-pushpin</styleUrl>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
 			<Point>
 				<gx:drawOrder>1</gx:drawOrder>
-				<coordinates>102.8059741820394,24.37894822722052,0</coordinates>
+				<coordinates>-82.39027481133105,39.29170564909484,0</coordinates>
 			</Point>
 		</Placemark>
 		<Placemark>
@@ -189,6 +213,40 @@
 			<Point>
 				<gx:drawOrder>1</gx:drawOrder>
 				<coordinates>116.131238914001,29.73132212468931,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>chl_22</name>
+			<LookAt>
+				<longitude>-96.78423321727422</longitude>
+				<latitude>28.30979515858438</latitude>
+				<altitude>0</altitude>
+				<heading>-0.01130118191290564</heading>
+				<tilt>0.1098949708041693</tilt>
+				<range>52656.93447355109</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-96.84669156272861,28.18916324410779,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>chl_23</name>
+			<LookAt>
+				<longitude>-53.37466241445205</longitude>
+				<latitude>-22.83225991047532</latitude>
+				<altitude>0</altitude>
+				<heading>0.007331677767733203</heading>
+				<tilt>0</tilt>
+				<range>68236.55528443897</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-53.30371294984018,-22.76925149862927,0</coordinates>
 			</Point>
 		</Placemark>
 		<Placemark>
@@ -269,6 +327,40 @@
 			</Point>
 		</Placemark>
 		<Placemark>
+			<name>chl_33</name>
+			<LookAt>
+				<longitude>16.75279269654524</longitude>
+				<latitude>48.12026469180479</latitude>
+				<altitude>0</altitude>
+				<heading>-4.367993589773996</heading>
+				<tilt>2.122071115865444</tilt>
+				<range>11731.54787681651</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>16.74560588132694,48.12786592621116,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>chl_34</name>
+			<LookAt>
+				<longitude>23.58588573276796</longitude>
+				<latitude>51.5439752345516</latitude>
+				<altitude>0</altitude>
+				<heading>0.01657266080018909</heading>
+				<tilt>5.089328722361308</tilt>
+				<range>7204.085782906131</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>21.63416666666667,52.60666666666667,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
 			<name>chl_35</name>
 			<LookAt>
 				<longitude>16.73406477236365</longitude>
@@ -317,6 +409,40 @@
 			<Point>
 				<gx:drawOrder>1</gx:drawOrder>
 				<coordinates>-46.72328478289966,-0.9038062973608434,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>chl_41</name>
+			<LookAt>
+				<longitude>-102.4639158825603</longitude>
+				<latitude>53.98572661552287</latitude>
+				<altitude>0</altitude>
+				<heading>-0.3008210588656294</heading>
+				<tilt>0.7138644256273348</tilt>
+				<range>25749.17161607987</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-102.4914647069732,53.97757239234453,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>chl_42</name>
+			<LookAt>
+				<longitude>116.6519410815426</longitude>
+				<latitude>23.38621822172592</latitude>
+				<altitude>0</altitude>
+				<heading>-0.01200662256353856</heading>
+				<tilt>0</tilt>
+				<range>105533.7599394206</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>116.7651015541182,23.32796092248964,0</coordinates>
 			</Point>
 		</Placemark>
 		<Placemark>
@@ -388,6 +514,40 @@
 			</Point>
 		</Placemark>
 		<Placemark>
+			<name>chl_51</name>
+			<LookAt>
+				<longitude>20.76613554668195</longitude>
+				<latitude>1.686674695834742</latitude>
+				<altitude>0</altitude>
+				<heading>0.0180551667878396</heading>
+				<tilt>0</tilt>
+				<range>192935.839659281</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>20.60499811883649,2.014970948819568,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>chl_53</name>
+			<LookAt>
+				<longitude>-48.61915025854439</longitude>
+				<latitude>-23.48485481456934</latitude>
+				<altitude>0</altitude>
+				<heading>-0.0391703148613077</heading>
+				<tilt>13.55923045051759</tilt>
+				<range>6109.527265021296</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-48.62398533899057,-23.48297553596458,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
 			<name>chl_54</name>
 			<LookAt>
 				<longitude>-53.43834907775148</longitude>
@@ -456,6 +616,40 @@
 			</Point>
 		</Placemark>
 		<Placemark>
+			<name>chl_60</name>
+			<LookAt>
+				<longitude>-72.8114822162438</longitude>
+				<latitude>45.81413959320398</latitude>
+				<altitude>0</altitude>
+				<heading>-1.161635907310976</heading>
+				<tilt>0</tilt>
+				<range>404002.3479595482</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-73.06839040737441,46.06895081159511,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>chl_61</name>
+			<LookAt>
+				<longitude>18.97677893070943</longitude>
+				<latitude>45.60737305271125</latitude>
+				<altitude>0</altitude>
+				<heading>2.239349390558532</heading>
+				<tilt>0</tilt>
+				<range>55755.47512293192</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>18.87842684600605,45.63095455801694,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
 			<name>chl_62</name>
 			<LookAt>
 				<longitude>-115.1334469694581</longitude>
@@ -487,6 +681,57 @@
 			<Point>
 				<gx:drawOrder>1</gx:drawOrder>
 				<coordinates>-74.90583814615566,41.84667428266437,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>chl_68</name>
+			<LookAt>
+				<longitude>16.6020659403064</longitude>
+				<latitude>48.14164441783066</latitude>
+				<altitude>0</altitude>
+				<heading>-1.707706880846785</heading>
+				<tilt>6.708718619279977</tilt>
+				<range>7618.526671636785</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>16.58283790700734,48.14266648808123,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>chl_69</name>
+			<LookAt>
+				<longitude>18.8615932656559</longitude>
+				<latitude>45.59734203325362</latitude>
+				<altitude>0</altitude>
+				<heading>2.157040442949456</heading>
+				<tilt>6.860206420290215</tilt>
+				<range>8556.6600691105</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>18.85421110478265,45.60032999885185,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>chl_70</name>
+			<LookAt>
+				<longitude>-95.71288796318686</longitude>
+				<latitude>37.09024255822412</latitude>
+				<altitude>0</altitude>
+				<heading>1.831417313084025e-06</heading>
+				<tilt>0</tilt>
+				<range>5761848.178281333</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-95.71288796318684,37.09024255822412,0</coordinates>
 			</Point>
 		</Placemark>
 		<Placemark>
@@ -524,6 +769,57 @@
 			</Point>
 		</Placemark>
 		<Placemark>
+			<name>chl_78</name>
+			<LookAt>
+				<longitude>108.476019257841</longitude>
+				<latitude>30.37412883906208</latitude>
+				<altitude>0</altitude>
+				<heading>-2.142707706519912</heading>
+				<tilt>0</tilt>
+				<range>635687.8968415381</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>114,30,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>pro_15</name>
+			<LookAt>
+				<longitude>119.6085121241384</longitude>
+				<latitude>-23.16716360173812</latitude>
+				<altitude>0</altitude>
+				<heading>-0.1521396470183727</heading>
+				<tilt>0</tilt>
+				<range>160761.7923949008</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>119.2303792135538,-22.88826129991998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>pro_15</name>
+			<LookAt>
+				<longitude>119.7508920399684</longitude>
+				<latitude>-23.45920299034748</latitude>
+				<altitude>0</altitude>
+				<heading>-0.209149445624718</heading>
+				<tilt>3.194984233417189</tilt>
+				<range>26455.98465082008</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>119.7990743624266,-23.39885488925766,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
 			<name>pro_18</name>
 			<LookAt>
 				<longitude>-90.04736292281984</longitude>
@@ -555,6 +851,23 @@
 			<Point>
 				<gx:drawOrder>1</gx:drawOrder>
 				<coordinates>-91.23386351959435,43.61208246843049,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>pro_21</name>
+			<LookAt>
+				<longitude>12.11206149858322</longitude>
+				<latitude>55.70903915097489</latitude>
+				<altitude>0</altitude>
+				<heading>0.02020288168262681</heading>
+				<tilt>3.663636654004048</tilt>
+				<range>9030.832370193632</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>12.07887486998619,55.6932221190219,0</coordinates>
 			</Point>
 		</Placemark>
 		<Placemark>
@@ -643,6 +956,23 @@
 			</Point>
 		</Placemark>
 		<Placemark>
+			<name>pro_44</name>
+			<LookAt>
+				<longitude>18.5658770482044</longitude>
+				<latitude>53.00380779325495</latitude>
+				<altitude>0</altitude>
+				<heading>-0.03015716999956368</heading>
+				<tilt>17.99827058163979</tilt>
+				<range>418.2453225673639</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>18.56505709337841,53.00428785284366,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
 			<name>pro_48</name>
 			<LookAt>
 				<longitude>114.4084201253475</longitude>
@@ -674,6 +1004,23 @@
 			<Point>
 				<gx:drawOrder>1</gx:drawOrder>
 				<coordinates>147.5496828705419,-30.83145268352866,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>pro_5</name>
+			<LookAt>
+				<longitude>-105.8759746253599</longitude>
+				<latitude>40.41917361063395</latitude>
+				<altitude>0</altitude>
+				<heading>2.560993194660399</heading>
+				<tilt>0</tilt>
+				<range>42080.4807747864</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-105.8507543967812,40.38988643020245,0</coordinates>
 			</Point>
 		</Placemark>
 		<Placemark>
@@ -779,6 +1126,47 @@
 			</Point>
 		</Placemark>
 		<Placemark>
+			<name>pro_69</name>
+			<LookAt>
+				<longitude>-84.50489286458721</longitude>
+				<latitude>46.9461123684143</latitude>
+				<altitude>0</altitude>
+				<heading>-0.003796411641119803</heading>
+				<tilt>9.11357488915084</tilt>
+				<range>5368.63985128763</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-84.50451144316658,46.94575335690225,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>pro_69</name>
+			<LookAt>
+				<gx:TimeStamp><when>2020-07-24</when>
+</gx:TimeStamp>
+				<gx:ViewerOptions>
+					<gx:option name="historicalimagery"></gx:option>
+					<gx:option enabled="0" name="sunlight"></gx:option>
+					<gx:option enabled="0" name="streetview"></gx:option>
+				</gx:ViewerOptions>
+				<longitude>-84.82866989640418</longitude>
+				<latitude>47.95249576193296</latitude>
+				<altitude>0</altitude>
+				<heading>-0.001397282107131241</heading>
+				<tilt>12.87398519299667</tilt>
+				<range>1431.24508825881</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-84.82909209004565,47.94967895929835,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
 			<name>pro_7</name>
 			<LookAt>
 				<longitude>-60.87856516906682</longitude>
@@ -810,6 +1198,30 @@
 			<Point>
 				<gx:drawOrder>1</gx:drawOrder>
 				<coordinates>132.5290098851747,-12.92080551131776,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>pro_75</name>
+			<LookAt>
+				<gx:TimeStamp><when>2020-07-24</when>
+</gx:TimeStamp>
+				<gx:ViewerOptions>
+					<gx:option name="historicalimagery"></gx:option>
+					<gx:option enabled="0" name="sunlight"></gx:option>
+					<gx:option enabled="0" name="streetview"></gx:option>
+				</gx:ViewerOptions>
+				<longitude>-92.22266280483352</longitude>
+				<latitude>30.13733832887226</latitude>
+				<altitude>0</altitude>
+				<heading>-0.1238965726579253</heading>
+				<tilt>0</tilt>
+				<range>447943.8618007024</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#m_ylw-pushpin1</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-91.55828396336256,29.74698159460705,0</coordinates>
 			</Point>
 		</Placemark>
 	</Folder>
