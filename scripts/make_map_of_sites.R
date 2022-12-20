@@ -12,6 +12,10 @@ library(rnaturalearth)
 # load data
 dat <- read_csv("data_raw/all_localities_by_paper.csv")
 
+# Add a col for original label (drop anything _a or _b)
+dat <- dat |>
+  mutate(ID_orig = gsub("_[a-z]$", "", ID), .after=ID)
+
 # load kml locations
 sites <- st_read("data_raw/NCEAS_metanalysis_sites.kml") %>%
   mutate(lon_x = st_coordinates(.)[,1],
