@@ -57,14 +57,16 @@ dat$ID[!dat$ID %in% sites$ID]
 data(World, land)
 
 (m1 <- tm_shape(World, projection = "+proj=eck4") +
-  tm_fill("continent", palette="Greys",legend.show = FALSE, alpha = 0.8) +
-  tm_shape(World, projection = "+proj=eck4") +
-  tm_polygons(border.col = "gray50", alpha=0, legend.show = FALSE) +
-  tm_shape(dat_sf) + tm_symbols(shape = 21, col="aquamarine", alpha=0.9, border.col="gray20", size = 0.6) +
-  tm_style("white", frame.lwd=0) + tm_format("World")+
-  tm_layout(frame=FALSE, fontfamily = "Roboto",
-            main.title = "Meta-analysis Sites",
-            main.title.position = "center"))
+    tm_fill("continent", palette="Greys",legend.show = FALSE, alpha = 0.8) +
+    tm_shape(World, projection = "+proj=eck4") +
+    tm_polygons(border.col = "gray50", alpha=0, legend.show = FALSE) +
+    tm_shape(dat_sf) + tm_symbols(shape = 21, col="aquamarine", alpha=0.9, border.col="gray20", size = 0.6) +
+    tm_compass() +
+    tm_style("white", frame.lwd=0) + tm_format("World") +
+    tm_layout(frame=FALSE, fontfamily = "Roboto",
+              inner.margins = c(0, .01, .01, .01),
+              main.title = "Meta-analysis Sites",
+              main.title.position = "center"))
 
 tmap_save(m1, filename = "figs/map_of_literature_study_locations.png", width = 11, height = 8.5, dpi = 300)
 
